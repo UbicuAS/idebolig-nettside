@@ -88,7 +88,6 @@ def footer_html(prefix: str) -> str:
   </div>
  </div>
  <div class="ibf-partnerfelt">
-   <h4>Våre samarbeidspartnere</h4>
    <div class="ibf-partnerrad">{partnere}</div>
  </div>
 </div>
