@@ -175,48 +175,227 @@ class="hfeed site" id="page">
 
 		
 					<main id="main" class="site-main">
-				<article
-class="post-543 page type-page status-publish ast-article-single" id="post-543" itemtype="https://schema.org/CreativeWork" itemscope="itemscope">
-	
-				<header class="entry-header ast-no-title ast-header-without-markup">
-							</header> <!-- .entry-header -->
-		
-<div class="entry-content clear"
-	itemprop="text">
+<style>
+#ibp{--gull:#C99C55;--mork:#33302C;--grå:#6b6257;--krem:#F7F3EC;
+  font-family:Poppins,sans-serif;color:var(--mork);background:var(--krem);
+  padding:88px 20px 100px}
+:where(#ibp *){box-sizing:border-box;margin:0}
+.ibp-indre{max-width:1200px;margin:0 auto}
+.ibp-topp{max-width:640px;margin-bottom:46px}
+.ibp-kicker{display:flex;align-items:center;gap:14px;font:600 12px/1 Inter,sans-serif;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--gull);margin-bottom:22px}
+.ibp-kicker::after{content:"";flex:0 0 46px;height:1px;background:var(--gull);opacity:.55}
+#ibp h1{font-size:clamp(34px,4.5vw,52px);font-weight:700;line-height:1.14;
+  letter-spacing:-.015em;margin-bottom:20px}
+.ibp-intro{color:var(--grå);font-size:16px;line-height:1.75}
+.ibp-filtre{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:44px}
+.ibp-chip{padding:9px 15px;border:1px solid #E3DCCF;border-radius:99px;background:#fff;
+  font:500 13px Poppins,sans-serif;color:var(--grå);cursor:pointer;transition:.18s}
+.ibp-chip:hover{border-color:var(--gull);color:var(--mork)}
+.ibp-chip.aktiv{background:var(--mork);border-color:var(--mork);color:#fff}
+.ibp-rad{display:grid;grid-template-columns:7fr 5fr;gap:44px;align-items:center;
+  background:#fff;border-radius:20px;overflow:hidden;margin-bottom:34px;
+  box-shadow:0 2px 16px rgba(51,48,44,.08);
+  opacity:0;translate:0 26px;transition:opacity .6s ease,translate .6s ease}
+.ibp-rad.vis{opacity:1;translate:0 0}
+.ibp-rad.skjult{display:none}
+.ibp-rad:nth-child(even){grid-template-columns:5fr 7fr}
+.ibp-rad:nth-child(even) .ibp-media{order:2}
+.ibp-media{position:relative;cursor:zoom-in;align-self:stretch;min-height:340px}
+.ibp-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .6s ease}
+.ibp-rad:hover .ibp-media img{transform:scale(1.045)}
+.ibp-merker{position:absolute;left:14px;bottom:14px;display:flex;gap:7px}
+.ibp-merke{font:600 11.5px Inter,sans-serif;background:rgba(24,22,19,.72);color:#fff;
+  backdrop-filter:blur(3px);padding:8px 12px;border-radius:99px}
+.ibp-innhold{padding:40px 44px 40px 0}
+.ibp-rad:nth-child(even) .ibp-innhold{padding:40px 0 40px 44px}
+.ibp-kat{font:600 11px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gull);margin-bottom:10px;display:block}
+.ibp-innhold h2{font-size:clamp(21px,2.4vw,27px);font-weight:700;line-height:1.25;
+  margin-bottom:6px}
+.ibp-sted{font:500 13.5px Inter,sans-serif;color:var(--grå);margin-bottom:14px;
+  display:flex;align-items:center;gap:6px}
+.ibp-sted svg{width:14px;height:14px;stroke:var(--gull);fill:none;stroke-width:1.8}
+.ibp-innhold p{color:var(--grå);font-size:14.5px;line-height:1.75;margin-bottom:20px}
+.ibp-knapp{display:inline-flex;align-items:center;gap:9px;background:var(--gull);
+  color:#fff;font:600 14px Poppins,sans-serif;padding:12px 20px;border:0;
+  border-radius:10px;cursor:pointer;transition:filter .2s}
+.ibp-knapp:hover{filter:brightness(1.07)}
+.ibp-lys{position:fixed;inset:0;z-index:9999;background:rgba(20,18,16,.94);display:none;
+  align-items:center;justify-content:center;padding:34px;flex-direction:column;gap:14px}
+.ibp-lys.vis{display:flex}
+.ibp-lys img,.ibp-lys video{max-width:92vw;max-height:80vh;border-radius:8px;object-fit:contain}
+.ibp-lys button{position:absolute;background:rgba(255,255,255,.12);border:0;color:#fff;
+  width:46px;height:46px;border-radius:50%;font-size:21px;cursor:pointer;transition:background .2s}
+.ibp-lys button:hover{background:rgba(255,255,255,.28)}
+.ibp-lukk{top:22px;right:22px}
+.ibp-forrige{left:22px;top:50%;translate:0 -50%}
+.ibp-neste{right:22px;top:50%;translate:0 -50%}
+.ibp-tekstlinje{color:#fff;font:500 13px Inter,sans-serif;opacity:.85;text-align:center}
+@media(max-width:900px){
+ .ibp-rad,.ibp-rad:nth-child(even){grid-template-columns:1fr}
+ .ibp-rad:nth-child(even) .ibp-media{order:0}
+ .ibp-media{min-height:250px}
+ .ibp-innhold,.ibp-rad:nth-child(even) .ibp-innhold{padding:6px 26px 30px}}
+</style>
 
-	
-			<div data-elementor-type="wp-post" data-elementor-id="543" class="elementor elementor-543" data-elementor-post-type="page">
-				<div class="elementor-element elementor-element-f686703 e-flex e-con-boxed e-con e-parent" data-id="f686703" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-30d24d56 e-flex e-con-boxed e-con e-child" data-id="30d24d56" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-572d06d elementor-widget elementor-widget-heading" data-id="572d06d" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default">PROSJEKTER</h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-85926ce elementor-widget elementor-widget-text-editor" data-id="85926ce" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>Siden er for tiden under utvikling og vil bli tilgjengelig så snart den er klar. Vi håper du tar turen innom igjen!</p>								</div>
-				</div>
-					</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-29ba489f e-flex e-con-boxed e-con e-parent" data-id="29ba489f" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-					</div>
-				</div>
-				</div>
-		
-	
-	
-</div><!-- .entry-content .clear -->
+<section id="ibp">
+ <div class="ibp-indre">
+  <div class="ibp-topp">
+    <p class="ibp-kicker">Referanser</p>
+    <h1>Prosjekter</h1>
+    <p class="ibp-intro">Et utvalg av prosjektene vi har gjennomført — fra
+      totalrenoveringer og tilbygg til leilighetsbygg og næringsbygg.</p>
+  </div>
+  <div class="ibp-filtre" id="ibp-filtre"><button class="ibp-chip aktiv" data-f="alle">Alle</button><button class="ibp-chip" data-f="Nybygg">Nybygg</button><button class="ibp-chip" data-f="Næringsbygg">Næringsbygg</button><button class="ibp-chip" data-f="Renovering">Renovering</button><button class="ibp-chip" data-f="Tilbygg">Tilbygg</button></div>
+  
+<article class="ibp-rad" data-kat="Nybygg" data-tittel="Edvard Griegs vei 15" data-media="../prosjekt-assets/edvard-griegs-vei/bilde-01.webp|../prosjekt-assets/edvard-griegs-vei/bilde-02.webp|../prosjekt-assets/edvard-griegs-vei/bilde-03.webp|../prosjekt-assets/edvard-griegs-vei/bilde-04.webp|../prosjekt-assets/edvard-griegs-vei/bilde-05.webp|../prosjekt-assets/edvard-griegs-vei/bilde-06.webp|../prosjekt-assets/edvard-griegs-vei/bilde-07.webp|../prosjekt-assets/edvard-griegs-vei/bilde-08.webp|../prosjekt-assets/edvard-griegs-vei/bilde-09.webp|../prosjekt-assets/edvard-griegs-vei/bilde-10.webp|../prosjekt-assets/edvard-griegs-vei/bilde-11.webp|../prosjekt-assets/edvard-griegs-vei/bilde-12.webp|../prosjekt-assets/edvard-griegs-vei/bilde-13.webp|../prosjekt-assets/edvard-griegs-vei/bilde-14.webp|../prosjekt-assets/edvard-griegs-vei/bilde-15.webp|../prosjekt-assets/edvard-griegs-vei/video-01.mp4">
+  <div class="ibp-media">
+    <img src="../prosjekt-assets/edvard-griegs-vei/bilde-01.webp" alt="Edvard Griegs vei 15" loading="lazy">
+    <div class="ibp-merker"><span class="ibp-merke">15 bilder</span><span class="ibp-merke">▶ 1 video</span></div>
+  </div>
+  <div class="ibp-innhold">
+    <span class="ibp-kat">Nybygg</span>
+    <h2>Edvard Griegs vei 15</h2>
+    <p class="ibp-sted"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Fjellhamar, Lørenskog</p>
+    <p>Boligprosjekt i Edvard Griegs vei 15 på Fjellhamar i Lørenskog kommune. Vi har fulgt prosjektet gjennom hele byggeprosessen — se bilder og video fra arbeidet.</p>
+    <button class="ibp-knapp">Se prosjektet <span aria-hidden="true">→</span></button>
+  </div>
+</article>
+<article class="ibp-rad" data-kat="Nybygg" data-tittel="Hagejordet leilighetsbygg" data-media="../prosjekt-assets/hagejordet-lillehammer/bilde-01.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-02.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-03.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-04.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-05.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-06.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-07.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-08.webp|../prosjekt-assets/hagejordet-lillehammer/bilde-09.webp">
+  <div class="ibp-media">
+    <img src="../prosjekt-assets/hagejordet-lillehammer/bilde-01.webp" alt="Hagejordet leilighetsbygg" loading="lazy">
+    <div class="ibp-merker"><span class="ibp-merke">9 bilder</span></div>
+  </div>
+  <div class="ibp-innhold">
+    <span class="ibp-kat">Nybygg</span>
+    <h2>Hagejordet leilighetsbygg</h2>
+    <p class="ibp-sted"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Lillehammer</p>
+    <p>Oppføring av leilighetsbyggene A, B, C og D på Hagejordet i Lillehammer — et større boligprosjekt med flere byggetrinn.</p>
+    <button class="ibp-knapp">Se prosjektet <span aria-hidden="true">→</span></button>
+  </div>
+</article>
+<article class="ibp-rad" data-kat="Næringsbygg" data-tittel="Kontorbygg Parkgata BT2 og BT3" data-media="../prosjekt-assets/parkgata-gjovik/bilde-01.webp|../prosjekt-assets/parkgata-gjovik/bilde-02.webp|../prosjekt-assets/parkgata-gjovik/bilde-03.webp">
+  <div class="ibp-media">
+    <img src="../prosjekt-assets/parkgata-gjovik/bilde-01.webp" alt="Kontorbygg Parkgata BT2 og BT3" loading="lazy">
+    <div class="ibp-merker"><span class="ibp-merke">3 bilder</span></div>
+  </div>
+  <div class="ibp-innhold">
+    <span class="ibp-kat">Næringsbygg</span>
+    <h2>Kontorbygg Parkgata BT2 og BT3</h2>
+    <p class="ibp-sted"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Gjøvik</p>
+    <p>Montasje og komplettering av kontorbygg i Parkgata på Gjøvik, byggetrinn 2 og 3.</p>
+    <button class="ibp-knapp">Se prosjektet <span aria-hidden="true">→</span></button>
+  </div>
+</article>
+<article class="ibp-rad" data-kat="Nybygg" data-tittel="Nadderudskogen garasjeanlegg" data-media="../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-01.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-02.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-03.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-04.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-05.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-06.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-07.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-08.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-09.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-10.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-11.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-12.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-13.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-14.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-15.webp|../prosjekt-assets/nadderudskogen-garasjeanlegg/video-01.mp4|../prosjekt-assets/nadderudskogen-garasjeanlegg/video-02.mp4|../prosjekt-assets/nadderudskogen-garasjeanlegg/video-03.mp4">
+  <div class="ibp-media">
+    <img src="../prosjekt-assets/nadderudskogen-garasjeanlegg/bilde-01.webp" alt="Nadderudskogen garasjeanlegg" loading="lazy">
+    <div class="ibp-merker"><span class="ibp-merke">15 bilder</span><span class="ibp-merke">▶ 3 videoer</span></div>
+  </div>
+  <div class="ibp-innhold">
+    <span class="ibp-kat">Nybygg</span>
+    <h2>Nadderudskogen garasjeanlegg</h2>
+    <p class="ibp-sted"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Hosle, Bærum</p>
+    <p>Nytt garasjeanlegg i Bankveien og Wilh. Wilhelmsens vei 6 på Hosle i Bærum kommune — fra tegninger til ferdig anlegg.</p>
+    <button class="ibp-knapp">Se prosjektet <span aria-hidden="true">→</span></button>
+  </div>
+</article>
+<article class="ibp-rad" data-kat="Renovering" data-tittel="Smebyvegen 17A — totalrenovering" data-media="../prosjekt-assets/smebyvegen-hamar/bilde-01.webp|../prosjekt-assets/smebyvegen-hamar/bilde-02.webp|../prosjekt-assets/smebyvegen-hamar/bilde-03.webp|../prosjekt-assets/smebyvegen-hamar/bilde-04.webp|../prosjekt-assets/smebyvegen-hamar/bilde-05.webp|../prosjekt-assets/smebyvegen-hamar/bilde-06.webp|../prosjekt-assets/smebyvegen-hamar/bilde-07.webp|../prosjekt-assets/smebyvegen-hamar/bilde-08.webp|../prosjekt-assets/smebyvegen-hamar/bilde-09.webp|../prosjekt-assets/smebyvegen-hamar/bilde-10.webp|../prosjekt-assets/smebyvegen-hamar/bilde-11.webp|../prosjekt-assets/smebyvegen-hamar/bilde-12.webp|../prosjekt-assets/smebyvegen-hamar/bilde-13.webp|../prosjekt-assets/smebyvegen-hamar/bilde-14.webp">
+  <div class="ibp-media">
+    <img src="../prosjekt-assets/smebyvegen-hamar/bilde-01.webp" alt="Smebyvegen 17A — totalrenovering" loading="lazy">
+    <div class="ibp-merker"><span class="ibp-merke">14 bilder</span></div>
+  </div>
+  <div class="ibp-innhold">
+    <span class="ibp-kat">Renovering</span>
+    <h2>Smebyvegen 17A — totalrenovering</h2>
+    <p class="ibp-sted"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Hamar</p>
+    <p>Totalrenovering av bolig i Smebyvegen 17A på Hamar. Boligen ble fullstendig oppgradert innvendig og utvendig.</p>
+    <button class="ibp-knapp">Se prosjektet <span aria-hidden="true">→</span></button>
+  </div>
+</article>
+<article class="ibp-rad" data-kat="Tilbygg" data-tittel="Strømsveien 6 — tilbygg" data-media="../prosjekt-assets/stromsveien-lillestrom/bilde-01.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-02.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-03.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-04.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-05.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-06.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-07.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-08.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-09.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-10.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-11.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-12.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-13.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-14.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-15.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-16.webp|../prosjekt-assets/stromsveien-lillestrom/bilde-17.webp">
+  <div class="ibp-media">
+    <img src="../prosjekt-assets/stromsveien-lillestrom/bilde-01.webp" alt="Strømsveien 6 — tilbygg" loading="lazy">
+    <div class="ibp-merker"><span class="ibp-merke">17 bilder</span></div>
+  </div>
+  <div class="ibp-innhold">
+    <span class="ibp-kat">Tilbygg</span>
+    <h2>Strømsveien 6 — tilbygg</h2>
+    <p class="ibp-sted"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Lillestrøm</p>
+    <p>Oppføring av tilbygg over to etasjer med loft i Strømsveien 6 i Lillestrøm — en betydelig utvidelse av eksisterende bolig.</p>
+    <button class="ibp-knapp">Se prosjektet <span aria-hidden="true">→</span></button>
+  </div>
+</article>
+<article class="ibp-rad" data-kat="Renovering" data-tittel="Østregate 23 — fasade og vinduer" data-media="../prosjekt-assets/ostregate-hamar/bilde-01.webp|../prosjekt-assets/ostregate-hamar/bilde-02.webp|../prosjekt-assets/ostregate-hamar/bilde-03.webp|../prosjekt-assets/ostregate-hamar/bilde-04.webp|../prosjekt-assets/ostregate-hamar/bilde-05.webp|../prosjekt-assets/ostregate-hamar/bilde-06.webp|../prosjekt-assets/ostregate-hamar/bilde-07.webp|../prosjekt-assets/ostregate-hamar/bilde-08.webp|../prosjekt-assets/ostregate-hamar/bilde-09.webp|../prosjekt-assets/ostregate-hamar/bilde-10.webp|../prosjekt-assets/ostregate-hamar/bilde-11.webp|../prosjekt-assets/ostregate-hamar/bilde-12.webp|../prosjekt-assets/ostregate-hamar/bilde-13.webp|../prosjekt-assets/ostregate-hamar/bilde-14.webp|../prosjekt-assets/ostregate-hamar/bilde-15.webp|../prosjekt-assets/ostregate-hamar/bilde-16.webp|../prosjekt-assets/ostregate-hamar/bilde-17.webp|../prosjekt-assets/ostregate-hamar/bilde-18.webp|../prosjekt-assets/ostregate-hamar/bilde-19.webp|../prosjekt-assets/ostregate-hamar/bilde-20.webp|../prosjekt-assets/ostregate-hamar/bilde-21.webp|../prosjekt-assets/ostregate-hamar/bilde-22.webp|../prosjekt-assets/ostregate-hamar/bilde-23.webp">
+  <div class="ibp-media">
+    <img src="../prosjekt-assets/ostregate-hamar/bilde-01.webp" alt="Østregate 23 — fasade og vinduer" loading="lazy">
+    <div class="ibp-merker"><span class="ibp-merke">23 bilder</span></div>
+  </div>
+  <div class="ibp-innhold">
+    <span class="ibp-kat">Renovering</span>
+    <h2>Østregate 23 — fasade og vinduer</h2>
+    <p class="ibp-sted"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Hamar</p>
+    <p>Innvendig riving, utskifting av samtlige vinduer og fasadearbeid i Østregate 23 på Hamar.</p>
+    <button class="ibp-knapp">Se prosjektet <span aria-hidden="true">→</span></button>
+  </div>
+</article>
+ </div>
+ <div class="ibp-lys" id="ibp-lys" role="dialog" aria-label="Prosjektvisning">
+   <div id="ibp-ramme"></div>
+   <p class="ibp-tekstlinje"></p>
+   <button class="ibp-lukk" aria-label="Lukk">✕</button>
+   <button class="ibp-forrige" aria-label="Forrige">‹</button>
+   <button class="ibp-neste" aria-label="Neste">›</button>
+ </div>
+</section>
 
-	
-	
-</article><!-- #post-## -->
-
-			</main><!-- #main -->
+<script>
+(function(){
+ var rader=[].slice.call(document.querySelectorAll('.ibp-rad')),
+     filtre=document.getElementById('ibp-filtre'),
+     lys=document.getElementById('ibp-lys'),ramme=document.getElementById('ibp-ramme'),
+     linje=lys.querySelector('.ibp-tekstlinje'),liste=[],i=0,tittel='';
+ filtre.addEventListener('click',function(e){
+  var b=e.target.closest('.ibp-chip');if(!b)return;
+  filtre.querySelectorAll('.ibp-chip').forEach(function(c){c.classList.remove('aktiv');});
+  b.classList.add('aktiv');
+  rader.forEach(function(r){
+   r.classList.toggle('skjult',b.dataset.f!=='alle'&&r.dataset.kat!==b.dataset.f);});
+ });
+ function visMedia(){
+  var m=liste[i],el;
+  ramme.innerHTML='';
+  if(/\.mp4$/.test(m)){el=document.createElement('video');el.src=m;el.controls=true;
+   el.autoplay=true;el.playsInline=true;}
+  else{el=document.createElement('img');el.src=m;el.alt=tittel;}
+  ramme.appendChild(el);
+  linje.textContent=tittel+' — '+(i+1)+' / '+liste.length+(/\.mp4$/.test(m)?' (video)':'');
+ }
+ function aapne(r){liste=r.dataset.media.split('|');tittel=r.dataset.tittel;i=0;
+  lys.classList.add('vis');document.body.style.overflow='hidden';visMedia();}
+ function lukk(){lys.classList.remove('vis');document.body.style.overflow='';ramme.innerHTML='';}
+ rader.forEach(function(r){
+  r.querySelector('.ibp-media').addEventListener('click',function(){aapne(r);});
+  r.querySelector('.ibp-knapp').addEventListener('click',function(){aapne(r);});});
+ lys.querySelector('.ibp-lukk').addEventListener('click',lukk);
+ lys.querySelector('.ibp-forrige').addEventListener('click',function(){i=(i-1+liste.length)%liste.length;visMedia();});
+ lys.querySelector('.ibp-neste').addEventListener('click',function(){i=(i+1)%liste.length;visMedia();});
+ lys.addEventListener('click',function(e){if(e.target===lys)lukk();});
+ document.addEventListener('keydown',function(e){
+  if(!lys.classList.contains('vis'))return;
+  if(e.key==='Escape')lukk();
+  if(e.key==='ArrowLeft'||e.key==='Left'){i=(i-1+liste.length)%liste.length;visMedia();}
+  if(e.key==='ArrowRight'||e.key==='Right'){i=(i+1)%liste.length;visMedia();}});
+ if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+   if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.08});
+  rader.forEach(function(r){io.observe(r);});
+ }else rader.forEach(function(r){r.classList.add('vis');});
+})();
+</script>
+</main><!-- #main -->
 			
 		
 	</div><!-- #primary -->
