@@ -31,7 +31,7 @@ def kort_tekst(slug: str, maks: int = 250) -> str:
     return ""
 
 
-def spread_html(b: dict) -> tuple[str, str]:
+def spread_html(b: dict, nr_v: int = 0, nr_h: int = 0) -> tuple[str, str]:
     bra = f'{b["bra"]} m²' + (" pr enhet" if b["braenhet"] else "")
     specs = [("BRA", bra), ("Soverom", str(b["sov"])), ("Bad", str(b["bad"]))]
     if b["garasje"]:
@@ -41,7 +41,7 @@ def spread_html(b: dict) -> tuple[str, str]:
     spec_html = "".join(f'<div class="fb-spec"><span>{k}</span><b>{v}</b></div>'
                         for k, v in specs)
     venstre = (f'<div class="fb-foto"><img src="{beste_bilde(b["bilde"])}" alt="{b["navn"]}">'
-               f'<p>{b["navn"]}</p></div>')
+               f'<p>{b["navn"]}</p><span class="fb-sidenr fb-sidenr--v">{nr_v}</span></div>')
     høyre = f"""<div class="fb-info">
       <p class="fb-kicker">{b['type']} · {b['stil']}</p>
       <h3>{b['navn']}</h3>
@@ -49,6 +49,7 @@ def spread_html(b: dict) -> tuple[str, str]:
       <div class="fb-specs">{spec_html}</div>
       <p class="fb-tekst">{kort_tekst(b['slug'])}</p>
       <a class="fb-lenke" href="../{b['slug']}/">Se boligen på nettsiden →</a>
+      <span class="fb-sidenr fb-sidenr--h">{nr_h}</span>
     </div>"""
     return venstre, høyre
 
@@ -70,8 +71,8 @@ def bygg() -> None:
     </div>"""
 
     sider = [None, forside]  # spread 0: solo forside
-    for b in BOLIGER:
-        v, h = spread_html(b)
+    for n, b in enumerate(BOLIGER):
+        v, h = spread_html(b, nr_v=2 + n * 2, nr_h=3 + n * 2)
         sider += [v, h]
     sider += [bakside, None]  # siste spread: solo bakside
 
@@ -140,11 +141,15 @@ def bygg() -> None:
   filter:drop-shadow(3px 3px 4px rgba(0,0,0,.18))}}
 .fb-scene:hover .fb-hjorne.fb-kan{{opacity:.9}}
 .fb-side-innhold{{position:absolute;inset:0}}
+.fb-sidenr{{position:absolute;bottom:11px;margin:0!important;
+  font:600 11px Inter,sans-serif;letter-spacing:.06em;z-index:2}}
+.fb-sidenr--v{{left:16px;color:rgba(255,255,255,.85)}}
+.fb-sidenr--h{{right:16px;color:var(--grå)}}
 .fb-foto{{position:absolute;inset:0}}
 .fb-foto img{{width:100%;height:100%;object-fit:cover}}
-.fb-foto p{{position:absolute;left:0;right:0;bottom:0;padding:26px 28px 18px;
-  color:#fff;font:700 24px Poppins,sans-serif;
-  background:linear-gradient(to top,rgba(24,22,19,.72),transparent)}}
+.fb-foto p{{position:absolute;left:0;right:0;bottom:0;margin:0!important;
+  padding:34px 28px 16px;color:#fff;font:700 24px Poppins,sans-serif;
+  background:linear-gradient(to top,rgba(24,22,19,.78),rgba(24,22,19,.25) 70%,transparent)}}
 .fb-info{{position:absolute;inset:0;padding:8% 9%;display:flex;flex-direction:column}}
 .fb-kicker{{font:600 10.5px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;
   color:var(--gull);margin-bottom:10px}}
