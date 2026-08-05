@@ -178,202 +178,170 @@ class="hfeed site" id="page">
 
 		
 					<main id="main" class="site-main">
-				<article
-class="post-1579 page type-page status-publish ast-article-single" id="post-1579" itemtype="https://schema.org/CreativeWork" itemscope="itemscope">
-	
-				<header class="entry-header ast-no-title ast-header-without-markup">
-							</header> <!-- .entry-header -->
-		
-<div class="entry-content clear"
-	itemprop="text">
+<style>
+#ibs{--gull:#C99C55;--mork:#33302C;--grå:#6b6257;--krem:#F7F3EC;
+  font-family:Poppins,sans-serif;color:var(--mork);background:var(--krem);
+  padding-bottom:100px}
+:where(#ibs *){box-sizing:border-box;margin:0}
+.ibs-hero{position:relative;min-height:62vh;display:flex;align-items:flex-end;overflow:hidden}
+.ibs-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ibs-hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(24,22,19,.78) 0%,rgba(24,22,19,.25) 45%,rgba(24,22,19,.15) 100%)}
+.ibs-heroinnhold{position:relative;z-index:1;width:100%;max-width:1200px;
+  margin:0 auto;padding:70px 20px 46px;color:#fff}
+.ibs-smuler{font:500 13px Inter,sans-serif;margin-bottom:16px}
+.ibs-smuler a{color:#fff;opacity:.75;text-decoration:none}
+.ibs-smuler a:hover{opacity:1}
+.ibs-smuler span{opacity:.55;margin:0 8px}
+.ibs-badges{display:flex;gap:8px;margin-bottom:14px}
+.ibs-badge{font:600 11px/1 Inter,sans-serif;letter-spacing:.05em;
+  background:rgba(255,255,255,.16);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.35);padding:8px 13px;border-radius:99px}
+.ibs-badge--gull{background:var(--gull);border-color:var(--gull)}
+#ibs h1{font-size:clamp(38px,5.5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-.015em;color:#fff}
+.ibs-tagline{margin-top:12px;font-size:17px;opacity:.92;max-width:600px;line-height:1.6}
+.ibs-indre{max-width:1200px;margin:0 auto;padding:0 20px}
+.ibs-specband{position:relative;z-index:2;margin-top:-34px;display:flex;flex-wrap:wrap;
+  gap:1px;background:#E9E2D4;border-radius:16px;overflow:hidden;
+  box-shadow:0 10px 32px rgba(51,48,44,.12)}
+.ibs-spec{flex:1 1 130px;background:#fff;padding:20px 16px;text-align:center}
+.ibs-spec b{display:block;font:700 21px Poppins,sans-serif}
+.ibs-spec b small{font-size:12px;font-weight:500;color:var(--grå)}
+.ibs-spec span{font:600 10.5px Inter,sans-serif;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gull)}
+.ibs-seksjon{margin-top:72px}
+.ibs-kicker{display:flex;align-items:center;gap:14px;font:600 12px/1 Inter,sans-serif;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--gull);margin-bottom:18px}
+.ibs-kicker::after{content:"";flex:0 0 46px;height:1px;background:var(--gull);opacity:.55}
+#ibs h2{font-size:clamp(24px,3vw,32px);font-weight:700;letter-spacing:-.01em;margin-bottom:22px}
+.ibs-prosa{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:start}
+.ibs-prosa p{color:var(--grå);line-height:1.85;font-size:15.5px}
+.ibs-prosa p+p{margin-top:18px}
+.ibs-prosa p:first-of-type::first-letter{font-size:44px;font-weight:700;float:left;
+  line-height:.9;margin:4px 10px 0 0;color:var(--mork)}
+.ibs-kort{position:sticky;top:24px;background:#fff;border-radius:16px;padding:26px;
+  box-shadow:0 2px 14px rgba(51,48,44,.08)}
+.ibs-kort h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.ibs-kort p{font-size:13.5px;color:var(--grå);line-height:1.6;margin-bottom:18px}
+.ibs-knapp{display:block;text-align:center;background:var(--gull);color:#fff;
+  font:600 15px Poppins,sans-serif;padding:14px;border-radius:10px;text-decoration:none;
+  transition:filter .2s}
+.ibs-knapp:hover{filter:brightness(1.07)}
+.ibs-knapp--sek{background:transparent;color:var(--mork);border:1.5px solid #E3DCCF;margin-top:10px}
+.ibs-galleri{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.ibs-galleri button{border:0;padding:0;cursor:zoom-in;border-radius:14px;overflow:hidden;
+  aspect-ratio:4/3;background:#E9E2D4}
+.ibs-galleri img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.ibs-galleri button:hover img{transform:scale(1.05)}
+.ibs-plan .ibs-galleri button{aspect-ratio:16/9}
+.ibs-navig{margin-top:80px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ibs-navkort{display:flex;align-items:center;gap:16px;background:#fff;border-radius:14px;
+  padding:16px 20px;text-decoration:none;color:inherit;box-shadow:0 2px 14px rgba(51,48,44,.07);
+  transition:transform .25s,box-shadow .25s}
+.ibs-navkort:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(51,48,44,.14)}
+.ibs-navkort img{width:74px;height:56px;object-fit:cover;border-radius:9px}
+.ibs-navkort.neste{flex-direction:row-reverse;text-align:right}
+.ibs-navkort small{font:600 10.5px Inter,sans-serif;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gull)}
+.ibs-navkort b{display:block;font-size:16.5px}
+.ibs-lys{position:fixed;inset:0;z-index:9999;background:rgba(20,18,16,.93);display:none;
+  align-items:center;justify-content:center;padding:34px}
+.ibs-lys.vis{display:flex}
+.ibs-lys img{max-width:92vw;max-height:86vh;border-radius:8px;object-fit:contain}
+.ibs-lys button{position:absolute;background:rgba(255,255,255,.12);border:0;color:#fff;
+  width:46px;height:46px;border-radius:50%;font-size:21px;cursor:pointer;transition:background .2s}
+.ibs-lys button:hover{background:rgba(255,255,255,.28)}
+.ibs-lukk{top:22px;right:22px}
+.ibs-forrige{left:22px;top:50%;translate:0 -50%}
+.ibs-neste{right:22px;top:50%;translate:0 -50%}
+.ibs-teller{position:absolute;bottom:22px;left:50%;translate:-50% 0;color:#fff;
+  font:500 13px Inter,sans-serif;opacity:.8}
+.ibs-avslor{opacity:0;translate:0 24px;transition:opacity .55s ease,translate .55s ease}
+.ibs-avslor.vis{opacity:1;translate:0 0}
+@media(max-width:900px){.ibs-prosa{grid-template-columns:1fr}.ibs-kort{position:static}}
+@media(max-width:640px){.ibs-navig{grid-template-columns:1fr}.ibs-hero{min-height:48vh}}
+</style>
 
-	
-			<div data-elementor-type="wp-page" data-elementor-id="1579" class="elementor elementor-1579" data-elementor-post-type="page">
-				<div class="elementor-element elementor-element-6903b30 imagezoom e-flex e-con-boxed e-con e-parent" data-id="6903b30" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-0b34923 elementor-widget elementor-widget-image" data-id="0b34923" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
-				<div class="elementor-widget-container">
-															<img decoding="async" width="2560" height="1440" src="../wp-content/uploads/2025/04/3-post-prod-scaled.webp" class="attachment-full size-full wp-image-2051" alt="" srcset="../wp-content/uploads/2025/04/3-post-prod-scaled.webp 2560w, ../wp-content/uploads/2025/04/3-post-prod-300x169.webp 300w, ../wp-content/uploads/2025/04/3-post-prod-1024x576.webp 1024w, ../wp-content/uploads/2025/04/3-post-prod-768x432.webp 768w, ../wp-content/uploads/2025/04/3-post-prod-1536x864.webp 1536w, ../wp-content/uploads/2025/04/3-post-prod-2048x1152.webp 2048w" sizes="(max-width: 2560px) 100vw, 2560px" />															</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-bfcc529 e-flex e-con-boxed e-con e-parent" data-id="bfcc529" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-53a0edb elementor-widget elementor-widget-heading" data-id="53a0edb" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Edvard</h2>				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-7029c36 e-flex e-con-boxed e-con e-parent" data-id="7029c36" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-a2f86a3 e-con-full e-flex e-con e-child" data-id="a2f86a3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-e1a2afd elementor-widget elementor-widget-heading" data-id="e1a2afd" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">BRA</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-e5a0006 e-con-full e-flex e-con e-child" data-id="e5a0006" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-6aace5c elementor-widget elementor-widget-heading" data-id="6aace5c" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">315 m2</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-aaab6dd e-con-full e-flex e-con e-child" data-id="aaab6dd" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-e8f7fbb elementor-widget elementor-widget-heading" data-id="e8f7fbb" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Utleiedel</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-e904054 e-con-full e-flex e-con e-child" data-id="e904054" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-2a4d587 elementor-widget elementor-widget-heading" data-id="2a4d587" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Ja - 47 m2</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-eb2dc31 e-con-full e-flex e-con e-child" data-id="eb2dc31" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-a4c5749 elementor-widget elementor-widget-heading" data-id="a4c5749" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Bad</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-f1dd510 e-con-full e-flex e-con e-child" data-id="f1dd510" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-9fca533 elementor-widget elementor-widget-heading" data-id="9fca533" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">2</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-8b79b77 e-con-full e-flex e-con e-child" data-id="8b79b77" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-eb63a00 elementor-widget elementor-widget-heading" data-id="eb63a00" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Soverom</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-62f70b0 e-con-full e-flex e-con e-child" data-id="62f70b0" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-3c46519 elementor-widget elementor-widget-heading" data-id="3c46519" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">5</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-ad18f52 e-con-full e-flex e-con e-child" data-id="ad18f52" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-9bad854 elementor-widget elementor-widget-heading" data-id="9bad854" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Garasje</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-aeaa4d9 e-con-full e-flex e-con e-child" data-id="aeaa4d9" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-e12c256 elementor-widget elementor-widget-heading" data-id="e12c256" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Ja - Dobbel</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-67f3858 e-con-full e-flex e-con e-child" data-id="67f3858" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-1b2b479 elementor-widget elementor-widget-heading" data-id="1b2b479" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Bod</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-fdb2fc8 e-con-full e-flex e-con e-child" data-id="fdb2fc8" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-46cc0e9 elementor-widget elementor-widget-heading" data-id="46cc0e9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">1</h2>				</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-2605a6e e-flex e-con-boxed e-con e-parent" data-id="2605a6e" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-2043f13 elementor-widget elementor-widget-heading" data-id="2043f13" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Klassisk bolig med moderne komfort, dobbel garasje og utleiedel</h2>				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-7d7caee e-flex e-con-boxed e-con e-parent" data-id="7d7caee" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-78e860a e-con-full e-flex e-con e-child" data-id="78e860a" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-813c36d elementor-widget elementor-widget-text-editor" data-id="813c36d" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>Klassiske boliger kombinerer tidløs eleganse med moderne løsninger, og denne boligen er et glimrende eksempel på hvordan tradisjonell arkitektur kan møte dagens krav til funksjonalitet og estetikk. Med symmetriske fasader, elegante søyler og gjennomtenkte detaljer oser boligen av sjel og varme. Samtidig sørger store vindusflater og smarte planløsninger for rikelig med lys og en luftig, åpen atmosfære.</p><p>Boligen er tilpasset en moderne livsstil og tilbyr ekstra komfort med en dobbel garasje og en utleiedel på 47 m². Utleiedelen gir en praktisk mulighet for ekstra inntekter eller plass til familiemedlemmer.</p><p>Med fokus på kvalitet i både materialer og design er denne boligen mer enn bare et sted å bo – det er en investering i stil, tradisjon og funksjonalitet. Idebolig gjør det enkelt å realisere drømmen om en klassisk bolig som er skreddersydd for dine behov og din tomt.</p>								</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-bd9ab37 e-con-full e-flex e-con e-child" data-id="bd9ab37" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f829651 elementor-widget elementor-widget-image-carousel" data-id="f829651" data-element_type="widget" data-e-type="widget" data-settings="{&quot;slides_to_show&quot;:&quot;1&quot;,&quot;navigation&quot;:&quot;none&quot;,&quot;autoplay_speed&quot;:4000,&quot;effect&quot;:&quot;fade&quot;,&quot;speed&quot;:900,&quot;autoplay&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;infinite&quot;:&quot;yes&quot;}" data-widget_type="image-carousel.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-image-carousel-wrapper swiper" role="region" aria-roledescription="carousel" aria-label="Image Carousel" dir="ltr">
-			<div class="elementor-image-carousel swiper-wrapper" aria-live="off">
-								<div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="1 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Fasade-fremside-kveld.png" alt="Fasade bakside" /></figure></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="2 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Detalj.png" alt="Detaljbilde" /></figure></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="3 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Detalj-2.png" alt="Fasade" /></figure></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="4 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Kjokken.png" alt="Kjøkken dag" /></figure></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="5 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Stue-ny-kveld.png" alt="Stue kveld" /></figure></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="6 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Fremside.png" alt="Innkjøring" /></figure></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="7 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Stue-ny-dag.png" alt="Stue dag" /></figure></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="8 of 8"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="../wp-content/uploads/2024/11/Kjokken-ny-himling-kveld.png" alt="Kjøkken kveld" /></figure></div>			</div>
-							
-									</div>
-						</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-47430bf e-flex e-con-boxed e-con e-parent" data-id="47430bf" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-4bf992f elementor-widget elementor-widget-heading" data-id="4bf992f" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">3D plan</h2>				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-8ec3ee7 e-flex e-con-boxed e-con e-parent" data-id="8ec3ee7" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-58b5882 e-con-full e-flex e-con e-child" data-id="58b5882" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-9f71fc1 elementor-widget elementor-widget-image" data-id="9f71fc1" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
-				<div class="elementor-widget-container">
-																<a href="../edvard.html#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJ1cmwiOiJodHRwczpcL1wvaWRlYm9saWcubm9cL3dwLWNvbnRlbnRcL3VwbG9hZHNcLzIwMjRcLzExXC8zRC1wbGFuLTEtZXRnLnBuZyIsInR5cGUiOiJpbWFnZSIsInRpdGxlIjoiM0QgcGxhbiAxIGV0ZyJ9">
-							<img decoding="async" width="1024" height="576" src="../wp-content/uploads/2024/11/3D-plan-1-etg-1024x576.png" class="attachment-large size-large wp-image-1665" alt="" srcset="../wp-content/uploads/2024/11/3D-plan-1-etg-1024x576.png 1024w, ../wp-content/uploads/2024/11/3D-plan-1-etg-300x169.png 300w, ../wp-content/uploads/2024/11/3D-plan-1-etg-768x432.png 768w, ../wp-content/uploads/2024/11/3D-plan-1-etg-1536x864.png 1536w, ../wp-content/uploads/2024/11/3D-plan-1-etg.png 1920w" sizes="(max-width: 1024px) 100vw, 1024px" />								</a>
-															</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-d9c3661 e-con-full e-flex e-con e-child" data-id="d9c3661" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-d7a4de8 elementor-widget elementor-widget-image" data-id="d7a4de8" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
-				<div class="elementor-widget-container">
-																<a href="../edvard.html#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJ1cmwiOiJodHRwczpcL1wvaWRlYm9saWcubm9cL3dwLWNvbnRlbnRcL3VwbG9hZHNcLzIwMjRcLzExXC8zRC1wbGFuLTItZXRnLnBuZyIsInR5cGUiOiJpbWFnZSIsInRpdGxlIjoiM0QgcGxhbiAyIGV0ZyJ9">
-							<img loading="lazy" decoding="async" width="1024" height="576" src="../wp-content/uploads/2024/11/3D-plan-2-etg-1024x576.png" class="attachment-large size-large wp-image-1666" alt="" srcset="../wp-content/uploads/2024/11/3D-plan-2-etg-1024x576.png 1024w, ../wp-content/uploads/2024/11/3D-plan-2-etg-300x169.png 300w, ../wp-content/uploads/2024/11/3D-plan-2-etg-768x432.png 768w, ../wp-content/uploads/2024/11/3D-plan-2-etg-1536x864.png 1536w, ../wp-content/uploads/2024/11/3D-plan-2-etg.png 1920w" sizes="(max-width: 1024px) 100vw, 1024px" />								</a>
-															</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-9e3059d e-flex e-con-boxed e-con e-parent" data-id="9e3059d" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-4ac7c71 elementor-widget elementor-widget-heading" data-id="4ac7c71" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Ønsker du mer informasjon om boligen?</h2>				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-6f5b292 e-flex e-con-boxed e-con e-parent" data-id="6f5b292" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-6419f96 e-con-full e-flex e-con e-child" data-id="6419f96" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-bd7b5c0 elementor-align-center elementor-widget elementor-widget-button" data-id="bd7b5c0" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-				<div class="elementor-widget-container">
-									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="../kontakt/index.html">
-						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Ta kontakt</span>
-					</span>
-					</a>
-				</div>
-								</div>
-				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-		
-	
-	
-</div><!-- .entry-content .clear -->
+<section id="ibs">
+ <div class="ibs-hero">
+  <img src="../wp-content/uploads/2025/04/3-post-prod-scaled.webp" alt="Edvard — fasade">
+  <div class="ibs-heroinnhold">
+    <p class="ibs-smuler"><a href="../v%C3%A5re-boliger/">Våre boliger</a><span>/</span>Edvard</p>
+    <div class="ibs-badges"><span class="ibs-badge">Enebolig</span><span class="ibs-badge ibs-badge--gull">Utleiedel 47 m²</span></div>
+    <h1>Edvard</h1>
+    <p class="ibs-tagline">Klassisk eleganse med dobbel garasje og utleiedel</p>
+  </div>
+ </div>
+ <div class="ibs-indre">
+  <div class="ibs-specband"><div class="ibs-spec"><b>315 m²</b><span>BRA</span></div><div class="ibs-spec"><b>5</b><span>Soverom</span></div><div class="ibs-spec"><b>2</b><span>Bad</span></div><div class="ibs-spec"><b>Dobbel</b><span>Garasje</span></div><div class="ibs-spec"><b>47 m²</b><span>Utleiedel</span></div><div class="ibs-spec"><b>1</b><span>Bod</span></div></div>
+  <section class="ibs-seksjon">
+    <p class="ibs-kicker">Om boligen</p>
+    <h2>Klassisk eleganse med dobbel garasje og utleiedel</h2>
+    <div class="ibs-prosa">
+      <div><p>Klassiske boliger kombinerer tidløs eleganse med moderne løsninger, og denne boligen er et glimrende eksempel på hvordan tradisjonell arkitektur kan møte dagens krav til funksjonalitet og estetikk. Med symmetriske fasader, elegante søyler og gjennomtenkte detaljer oser boligen av sjel og varme. Samtidig sørger store vindusflater og smarte planløsninger for rikelig med lys og en luftig, åpen atmosfære.</p><p>Boligen er tilpasset en moderne livsstil og tilbyr ekstra komfort med en dobbel garasje og en utleiedel på 47 m². Utleiedelen gir en praktisk mulighet for ekstra inntekter eller plass til familiemedlemmer.</p><p>Med fokus på kvalitet i både materialer og design er denne boligen mer enn bare et sted å bo – det er en investering i stil, tradisjon og funksjonalitet. Idebolig gjør det enkelt å realisere drømmen om en klassisk bolig som er skreddersydd for dine behov og din tomt.</p></div>
+      <aside class="ibs-kort">
+        <h3>Interessert i Edvard?</h3>
+        <p>Ta kontakt for prisoverslag, tilpasninger og tomtevurdering — helt uforpliktende.</p>
+        <a class="ibs-knapp" href="../kontakt/">Kontakt oss</a>
+        <a class="ibs-knapp ibs-knapp--sek" href="../v%C3%A5re-boliger/">Se alle boliger</a>
+      </aside>
+    </div>
+  </section>
+  <section class="ibs-seksjon">
+    <p class="ibs-kicker">Galleri</p>
+    <h2>Se Edvard innvendig og utvendig</h2>
+    <div class="ibs-galleri"><button class="ibs-avslor" data-full="../wp-content/uploads/2025/04/3-post-prod-scaled.webp"><img src="../wp-content/uploads/2025/04/3-post-prod-scaled.webp" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Fasade-fremside-kveld.png"><img src="../wp-content/uploads/2024/11/Fasade-fremside-kveld.png" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Detalj.png"><img src="../wp-content/uploads/2024/11/Detalj.png" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Detalj-2.png"><img src="../wp-content/uploads/2024/11/Detalj-2.png" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Kjokken.png"><img src="../wp-content/uploads/2024/11/Kjokken.png" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Stue-ny-kveld.png"><img src="../wp-content/uploads/2024/11/Stue-ny-kveld.png" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Fremside.png"><img src="../wp-content/uploads/2024/11/Fremside.png" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Stue-ny-dag.png"><img src="../wp-content/uploads/2024/11/Stue-ny-dag.png" alt="Edvard" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/Kjokken-ny-himling-kveld.png"><img src="../wp-content/uploads/2024/11/Kjokken-ny-himling-kveld.png" alt="Edvard" loading="lazy"></button></div>
+  </section>
+  <section class="ibs-seksjon ibs-plan">
+    <p class="ibs-kicker">Planløsning</p>
+    <h2>Plantegninger</h2>
+    <div class="ibs-galleri"><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/3D-plan-1-etg.png"><img src="../wp-content/uploads/2024/11/3D-plan-1-etg-1024x576.png" alt="Edvard — plantegning" loading="lazy"></button><button class="ibs-avslor" data-full="../wp-content/uploads/2024/11/3D-plan-2-etg.png"><img src="../wp-content/uploads/2024/11/3D-plan-2-etg-1024x576.png" alt="Edvard — plantegning" loading="lazy"></button></div>
+  </section>
+  <nav class="ibs-navig">
+    <a class="ibs-navkort" href="../alva/">
+      <img src="../wp-content/uploads/2025/04/Fasade-4-1024x576.png" alt="Alva" loading="lazy">
+      <div><small>← Forrige bolig</small><b>Alva</b></div></a>
+    <a class="ibs-navkort neste" href="../edvard-prakt/">
+      <img src="../wp-content/uploads/2025/03/Fasade-fremside-1024x576.png" alt="Edvard Prakt" loading="lazy">
+      <div><small>Neste bolig →</small><b>Edvard Prakt</b></div></a>
+  </nav>
+ </div>
+ <div class="ibs-lys" id="ibs-lys" role="dialog" aria-label="Bildevisning">
+   <img src="" alt=""><button class="ibs-lukk" aria-label="Lukk">✕</button>
+   <button class="ibs-forrige" aria-label="Forrige">‹</button>
+   <button class="ibs-neste" aria-label="Neste">›</button>
+   <p class="ibs-teller"></p>
+ </div>
+</section>
 
-	
-	
-</article><!-- #post-## -->
-
-			</main><!-- #main -->
+<script>
+(function(){
+ var bilder=[].slice.call(document.querySelectorAll('.ibs-galleri button')),
+     lys=document.getElementById('ibs-lys'),bilde=lys.querySelector('img'),
+     teller=lys.querySelector('.ibs-teller'),i=0;
+ function visLys(n){i=(n+bilder.length)%bilder.length;
+  bilde.src=bilder[i].dataset.full;teller.textContent=(i+1)+' / '+bilder.length;
+  lys.classList.add('vis');document.body.style.overflow='hidden';}
+ function lukk(){lys.classList.remove('vis');document.body.style.overflow='';}
+ bilder.forEach(function(b,n){b.addEventListener('click',function(){visLys(n);});});
+ lys.querySelector('.ibs-lukk').addEventListener('click',lukk);
+ lys.querySelector('.ibs-forrige').addEventListener('click',function(e){e.stopPropagation();visLys(i-1);});
+ lys.querySelector('.ibs-neste').addEventListener('click',function(e){e.stopPropagation();visLys(i+1);});
+ lys.addEventListener('click',function(e){if(e.target===lys)lukk();});
+ document.addEventListener('keydown',function(e){
+  if(!lys.classList.contains('vis'))return;
+  if(e.key==='Escape')lukk();
+  if(e.key==='ArrowLeft'||e.key==='Left')visLys(i-1);
+  if(e.key==='ArrowRight'||e.key==='Right')visLys(i+1);});
+ var avslor=[].slice.call(document.querySelectorAll('.ibs-avslor'));
+ if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+   if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.1});
+  avslor.forEach(function(el){io.observe(el);});
+ }else avslor.forEach(function(el){el.classList.add('vis');});
+})();
+</script>
+</main><!-- #main -->
 			
 		
 	</div><!-- #primary -->
