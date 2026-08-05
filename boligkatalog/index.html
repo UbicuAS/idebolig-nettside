@@ -198,7 +198,8 @@ class="hfeed site" id="page">
   margin-bottom:16px}
 .fbk-intro{color:var(--grå);font-size:15.5px;line-height:1.7}
 .fb-scene{perspective:2600px;max-width:1020px;margin:0 auto}
-.fb-stack{position:relative;width:100%;aspect-ratio:3/2;transition:translate 1.15s cubic-bezier(.36,.04,.22,1)}
+.fb-stack{position:relative;width:100%;aspect-ratio:3/2;
+  transition:translate 1.15s cubic-bezier(.36,.04,.22,1);will-change:translate}
 .fb-halv{position:absolute;top:0;bottom:0;width:50%;background:var(--papir);
   overflow:hidden;box-shadow:0 18px 50px rgba(51,48,44,.22)}
 .fb-halv--v{left:0;border-radius:10px 2px 2px 10px}
@@ -212,8 +213,9 @@ class="hfeed site" id="page">
   transform-style:preserve-3d;transform-origin:left center;z-index:5;
   will-change:transform;--fb-ms:1150ms}
 .fb-leaf-f,.fb-leaf-b{position:absolute;inset:0;backface-visibility:hidden;
-  background:var(--papir);overflow:hidden;border-radius:2px 10px 10px 2px}
-.fb-leaf-b{transform:rotateY(180deg);border-radius:10px 2px 2px 10px}
+  background:var(--papir);overflow:hidden;border-radius:2px 10px 10px 2px;
+  transform:translateZ(0)}
+.fb-leaf-b{transform:rotateY(180deg) translateZ(0);border-radius:10px 2px 2px 10px}
 .fb-leaf-f::after,.fb-leaf-b::after{content:"";position:absolute;inset:0;
   pointer-events:none;opacity:0;
   background:linear-gradient(to right,rgba(24,22,19,.30),rgba(24,22,19,.06) 55%,transparent);
@@ -426,20 +428,31 @@ class="hfeed site" id="page">
   var ff=document.createElement('div');ff.className='fb-leaf-f';
   var fb=document.createElement('div');fb.className='fb-leaf-b';
   leaf.appendChild(ff);leaf.appendChild(fb);
+  var anim;
   if(retning>0){inn(ff,'fb-s'+i+'r');inn(fb,'fb-s'+ny+'l');inn(h,'fb-s'+ny+'r');
-   leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.36,.04,.22,1) forwards';}
+   anim='fbNeste';}
   else{leaf.style.transform='rotateY(-180deg)';
    inn(ff,'fb-s'+ny+'r');inn(fb,'fb-s'+i+'l');inn(v,'fb-s'+ny+'l');
-   leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.36,.04,.22,1) forwards';}
+   anim='fbForrige';}
   stack.appendChild(leaf);
+  var maalTranslate;
   if(mobil()){
    side=etterSide;
    if(!harInnhold(ny,side==='l'?'l':'r'))side=(side==='l')?'r':'l';
-   stack.style.translate=(side==='r')?'-50%':'0';
+   maalTranslate=(side==='r')?'-50%':'0';
   }else{
-   stack.style.translate=(SOLO.indexOf(ny)>-1)?(ny===0?'25%':'-25%'):'0';
+   maalTranslate=(SOLO.indexOf(ny)>-1)?(ny===0?'25%':'-25%'):'0';
   }
-  setTimeout(function(){i=ny;vis();leaf.remove();laast=false;},MS);
+  var ferdig=false;
+  function avslutt(){if(ferdig)return;ferdig=true;i=ny;vis();leaf.remove();laast=false;}
+  leaf.addEventListener('animationend',avslutt);
+  setTimeout(avslutt,MS+250); // sikkerhetsnett
+  // la DOM-byttet males ferdig foer animasjonen starter (unngaar hakking)
+  void leaf.offsetWidth;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+   leaf.style.animation=anim+' '+MS+'ms cubic-bezier(.36,.04,.22,1) forwards';
+   stack.style.translate=maalTranslate;
+  });});
  }
  function bla(retning){
   if(laast)return;
