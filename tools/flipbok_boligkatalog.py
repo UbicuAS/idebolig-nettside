@@ -128,16 +128,8 @@ def bygg() -> None:
 .fb-leaf.aktiv .fb-leaf-f::after,.fb-leaf.aktiv .fb-leaf-b::after{{
   animation:fbSkygge var(--fb-ms) ease-in-out forwards}}
 @keyframes fbSkygge{{0%{{opacity:0}}45%{{opacity:1}}100%{{opacity:0}}}}
-@keyframes fbNeste{{0%{{transform:rotateY(0) rotateX(0)}}
-  30%{{transform:rotateY(-54deg) rotateX(1.6deg)}}
-  50%{{transform:rotateY(-90deg) rotateX(2deg)}}
-  70%{{transform:rotateY(-126deg) rotateX(1.6deg)}}
-  100%{{transform:rotateY(-180deg) rotateX(0)}}}}
-@keyframes fbForrige{{0%{{transform:rotateY(-180deg) rotateX(0)}}
-  30%{{transform:rotateY(-126deg) rotateX(1.6deg)}}
-  50%{{transform:rotateY(-90deg) rotateX(2deg)}}
-  70%{{transform:rotateY(-54deg) rotateX(1.6deg)}}
-  100%{{transform:rotateY(0) rotateX(0)}}}}
+@keyframes fbNeste{{0%{{transform:rotateY(0)}}100%{{transform:rotateY(-180deg)}}}}
+@keyframes fbForrige{{0%{{transform:rotateY(-180deg)}}100%{{transform:rotateY(0)}}}}
 .fb-hjorne{{position:absolute;top:0;width:74px;height:74px;pointer-events:none;
   opacity:0;transition:opacity .3s;z-index:6}}
 .fb-hjorne--h{{right:0;clip-path:polygon(100% 0,0 0,100% 100%);
@@ -194,8 +186,7 @@ def bygg() -> None:
  .fb-specs{{gap:5px}}
  .fb-foto p{{font-size:19px}}
  .fb-info{{padding:7% 8%}}
- @keyframes fbNeste{{0%{{transform:rotateY(0)}}100%{{transform:rotateY(-180deg)}}}}
- @keyframes fbForrige{{0%{{transform:rotateY(-180deg)}}100%{{transform:rotateY(0)}}}}
+ .fb-stack{{transition:translate 1.6s cubic-bezier(.33,.05,.2,1)}}
 }}
 </style>
 <section id="fbk">
