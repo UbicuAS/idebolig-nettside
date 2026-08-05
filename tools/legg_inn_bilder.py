@@ -85,12 +85,17 @@ for slot, (src, d) in sorted(matched.items()):
         im = ImageOps.exif_transpose(im)
         base = ImageOps.fit(im, base_size, Image.LANCZOS)
         save(base, slot)
-        for var in slot.parent.glob(f"{slot.stem}-*"):
-            m = VARIANT.search(var.stem)
-            if not m or var.stem[: -len(m.group(0))] != slot.stem:
-                continue
-            w, h = int(m.group(1)), int(m.group(2))
-            save(ImageOps.fit(im, (w, h), Image.LANCZOS), var)
+        # WP navngir varianter av «-scaled»-filer uten -scaled-suffikset
+        stems = {slot.stem}
+        if slot.stem.endswith("-scaled"):
+            stems.add(slot.stem[: -len("-scaled")])
+        for stem in stems:
+            for var in slot.parent.glob(f"{stem}-*"):
+                m = VARIANT.search(var.stem)
+                if not m or var.stem[: -len(m.group(0))] != stem:
+                    continue
+                w, h = int(m.group(1)), int(m.group(2))
+                save(ImageOps.fit(im, (w, h), Image.LANCZOS), var)
     print(f"INN  {slot.relative_to(REPO)}  <-  {src.relative_to(LEVERT)}  (avstand {d})")
 
 print("\n--- Plasser uten treff (beholder plassholder) ---")
