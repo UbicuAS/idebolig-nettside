@@ -18,6 +18,19 @@ ARKIV = Path(__file__).resolve().parent / "original-main"
 ARKIV.mkdir(exist_ok=True)
 
 SPECLABELS = {"bra", "bra pr enhet", "utleiedel", "bad", "soverom", "garasje", "bod"}
+
+
+def er_plassholder(stem: str) -> bool:
+    """Grå plassholdere har svært lav fargevariasjon; ekte foto har høy."""
+    from PIL import Image
+    from statistics import pstdev
+    for ext in (".webp", ".png", ".jpg"):
+        fil = ROOT / f"{stem}{ext}"
+        if fil.exists():
+            with Image.open(fil) as im:
+                px = list(im.convert("L").resize((16, 16)).getdata())
+            return pstdev(px) < 25
+    return True
 LOGO = re.compile(r"(logo|totalkontroll|download|bvnlogo|cropped|favicon|icon)", re.I)
 VARIANT = re.compile(r"-\d+x\d+$")
 
@@ -200,6 +213,7 @@ def bygg_side(idx: int) -> None:
     slug = b["slug"]
     main = hent_original_main(slug)
     avsnitt, bilder = tekst_og_bilder(main)
+    bilder = [s for s in bilder if not er_plassholder(s)]
     planer = [s for s in bilder if re.search(r"plan|etg", s, re.I)]
     foto = [s for s in bilder if s not in planer]
     forrige, neste = BOLIGER[idx - 1], BOLIGER[(idx + 1) % len(BOLIGER)]
