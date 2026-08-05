@@ -101,6 +101,13 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel="icon" href="../wp-content/uploads/2024/11/cropped-Asset-1-192x192.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="../wp-content/uploads/2024/11/cropped-Asset-1-180x180.png" />
 <meta name="msapplication-TileImage" content="https://idebolig.no/wp-content/uploads/2024/11/cropped-Asset-1-270x270.png" />
+<style id="ib-mobilfiks">
+html,body{overflow-x:hidden}
+.elementor-nav-menu--dropdown.elementor-nav-menu__container{max-width:calc(100vw - 34px)}
+/* statisk kopi: Elementor-JS-en viser aldri mobilmenyen - gjor det med CSS */
+.elementor-menu-toggle.elementor-active + .elementor-nav-menu--dropdown{display:block;
+  background:#fff;box-shadow:0 12px 30px rgba(0,0,0,.14);border-radius:0 0 12px 12px}
+</style>
 </head>
 
 <body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-544 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.13.3 ast-single-post ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header elementor-default elementor-kit-442 elementor-page elementor-page-544">

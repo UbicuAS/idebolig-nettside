@@ -162,7 +162,19 @@ def bygg() -> None:
 .fbk-kontroll button:hover:not([disabled]){{background:var(--gull);border-color:var(--gull);color:#fff}}
 .fbk-kontroll button[disabled]{{opacity:.35;cursor:default}}
 .fbk-teller{{font:500 13.5px Inter,sans-serif;color:var(--grå);min-width:110px;text-align:center}}
-@media(max-width:700px){{#fbk{{padding:56px 8px 70px}}.fb-specs{{gap:5px}}}}
+.fbk-kontroll button{{flex:0 0 46px;padding:0;line-height:1;min-width:0}}
+@media(hover:none){{.fb-hjorne{{display:none}}}}
+@media(max-width:700px){{
+ #fbk{{padding:56px 10px 70px}}
+ .fb-stack{{aspect-ratio:3/4;max-width:420px;margin:0 auto}}
+ .fb-halv--v{{display:none}}
+ .fb-halv--h{{left:0;width:100%;border-radius:10px}}
+ .fb-halv--h::after{{display:none}}
+ .fb-leaf{{left:0;width:100%}}
+ .fb-leaf-f,.fb-leaf-b{{border-radius:10px}}
+ .fb-specs{{gap:5px}}
+ .fb-foto p{{font-size:19px}}
+}}
 </style>
 <section id="fbk">
  <div class="fbk-indre">
@@ -190,38 +202,68 @@ def bygg() -> None:
 </section>
 <script>
 (function(){{
- var ANTALL={len(spreads)},SOLO={solo},i=0,laast=false,MS=900;
+ var ANTALL={len(spreads)},SOLO={solo},i=0,j=0,laast=false,MS=900;
  var v=document.getElementById('fb-venstre'),h=document.getElementById('fb-hoyre'),
      stack=document.getElementById('fb-stack'),teller=document.getElementById('fb-teller'),
      knappF=document.getElementById('fb-forrige'),knappN=document.getElementById('fb-neste'),
-     hjV=document.getElementById('fb-hj-v'),hjH=document.getElementById('fb-hj-h');
- function inn(el,id){{var t=document.getElementById(id);el.innerHTML='';
-  if(t&&t.content.firstElementChild){{el.appendChild(t.content.firstElementChild.cloneNode(true));
+     hjV=document.getElementById('fb-hj-v'),hjH=document.getElementById('fb-hj-h'),
+     smal=window.matchMedia('(max-width:700px)');
+ // flat sideliste for enkel-modus (mobil): alle ikke-tomme sider i rekkefolge
+ var SIDER=[];
+ for(var s=0;s<ANTALL;s++){{['l','r'].forEach(function(kant){{
+  var tpl=document.getElementById('fb-s'+s+kant);
+  if(tpl&&tpl.content.firstElementChild)SIDER.push({{spread:s,id:'fb-s'+s+kant}});}});}}
+ function inn(el,id){{var tpl=document.getElementById(id);el.innerHTML='';
+  if(tpl&&tpl.content.firstElementChild){{el.appendChild(tpl.content.firstElementChild.cloneNode(true));
    el.classList.remove('fb-blank');}}else el.classList.add('fb-blank');}}
+ function enkel(){{return smal.matches;}}
+ function maks(){{return enkel()?SIDER.length:ANTALL;}}
+ function pos(){{return enkel()?j:i;}}
  function vis(){{
-  inn(v,'fb-s'+i+'l');inn(h,'fb-s'+i+'r');
-  stack.style.translate=(SOLO.indexOf(i)>-1)?(v.classList.contains('fb-blank')?'-25%':'25%'):'0';
-  teller.textContent=i===0?'Forside':(i===ANTALL-1?'Bakside':'Oppslag '+i+' av '+(ANTALL-2));
-  knappF.disabled=i===0;knappN.disabled=i===ANTALL-1;
-  hjH.classList.toggle('fb-kan',i<ANTALL-1);hjV.classList.toggle('fb-kan',i>0);
+  if(enkel()){{
+   inn(h,SIDER[j].id);v.classList.add('fb-blank');stack.style.translate='0';
+   teller.textContent='Side '+(j+1)+' av '+SIDER.length;
+  }}else{{
+   inn(v,'fb-s'+i+'l');inn(h,'fb-s'+i+'r');
+   stack.style.translate=(SOLO.indexOf(i)>-1)?(v.classList.contains('fb-blank')?'-25%':'25%'):'0';
+   teller.textContent=i===0?'Forside':(i===ANTALL-1?'Bakside':'Oppslag '+i+' av '+(ANTALL-2));
+  }}
+  knappF.disabled=pos()===0;knappN.disabled=pos()===maks()-1;
+  hjH.classList.toggle('fb-kan',pos()<maks()-1);hjV.classList.toggle('fb-kan',pos()>0);
  }}
  function bla(retning){{
-  var ny=i+retning;
-  if(laast||ny<0||ny>=ANTALL)return;
+  var ny=pos()+retning;
+  if(laast||ny<0||ny>=maks())return;
   laast=true;
   var leaf=document.createElement('div');leaf.className='fb-leaf';
-  var f=document.createElement('div');f.className='fb-leaf-f';
-  var b=document.createElement('div');b.className='fb-leaf-b';
-  leaf.appendChild(f);leaf.appendChild(b);
-  if(retning>0){{inn(f,'fb-s'+i+'r');inn(b,'fb-s'+ny+'l');inn(h,'fb-s'+ny+'r');
-   leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
-  else{{leaf.style.transform='rotateY(-180deg)';
-   inn(f,'fb-s'+ny+'r');inn(b,'fb-s'+i+'l');inn(v,'fb-s'+ny+'l');
-   leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
-  stack.appendChild(leaf);
-  stack.style.translate=(SOLO.indexOf(ny)>-1)?(ny===0?'25%':'-25%'):'0';
-  setTimeout(function(){{i=ny;vis();leaf.remove();laast=false;}},MS);
+  var ff=document.createElement('div');ff.className='fb-leaf-f';
+  var fb=document.createElement('div');fb.className='fb-leaf-b';
+  leaf.appendChild(ff);leaf.appendChild(fb);
+  if(enkel()){{
+   if(retning>0){{inn(ff,SIDER[j].id);inn(fb,SIDER[ny].id);inn(h,SIDER[ny].id);
+    leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+   else{{leaf.style.transform='rotateY(-180deg)';
+    inn(ff,SIDER[ny].id);inn(fb,SIDER[j].id);inn(h,SIDER[ny].id);
+    leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+   stack.appendChild(leaf);
+   setTimeout(function(){{j=ny;vis();leaf.remove();laast=false;}},MS);
+  }}else{{
+   if(retning>0){{inn(ff,'fb-s'+i+'r');inn(fb,'fb-s'+ny+'l');inn(h,'fb-s'+ny+'r');
+    leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+   else{{leaf.style.transform='rotateY(-180deg)';
+    inn(ff,'fb-s'+ny+'r');inn(fb,'fb-s'+i+'l');inn(v,'fb-s'+ny+'l');
+    leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+   stack.appendChild(leaf);
+   stack.style.translate=(SOLO.indexOf(ny)>-1)?(ny===0?'25%':'-25%'):'0';
+   setTimeout(function(){{i=ny;vis();leaf.remove();laast=false;}},MS);
+  }}
  }}
+ smal.addEventListener('change',function(){{
+  // behold posisjonen best mulig ved modusbytte
+  if(enkel()){{for(var k=0;k<SIDER.length;k++)if(SIDER[k].spread===i){{j=k;break;}}}}
+  else i=SIDER[Math.min(j,SIDER.length-1)].spread;
+  vis();
+ }});
  knappN.addEventListener('click',function(){{bla(1);}});
  knappF.addEventListener('click',function(){{bla(-1);}});
  h.addEventListener('click',function(e){{if(!e.target.closest('a'))bla(1);}});

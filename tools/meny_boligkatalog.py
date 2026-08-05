@@ -14,11 +14,13 @@ def main() -> None:
         if rel.parts[0] in ("wp-content", "tools", "prosjekt-assets"):
             continue
         html = fil.read_text(encoding="utf-8")
-        if MARKOR in html or "<nav" not in html:
+        if "<nav" not in html:
             continue
+        # fjern ev. gammel variant først (idempotent oppdatering)
+        html = re.sub(r'<li[^>]*' + MARKOR + r'[^>]*>.*?</li>', "", html)
         prefix = "../" * (len(rel.parts) - 1)
         nytt_li = (f'<li class="menu-item menu-item-type-post_type menu-item-object-page {MARKOR}">'
-                   f'<a href="{prefix}boligkatalog/" class="menu-link">Boligkatalog</a></li>')
+                   f'<a href="{prefix}boligkatalog/" class="elementor-item menu-link">Boligkatalog</a></li>')
         # sett inn før hvert Kontakt-menypunkt
         mønster = re.compile(r'(<li[^>]*class="menu-item[^"]*"[^>]*>\s*<a[^>]*href="[^"]*kontakt/[^"]*"[^>]*>\s*Kontakt)')
         ny, antall = mønster.subn(nytt_li + r"\1", html)
