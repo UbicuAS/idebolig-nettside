@@ -40,8 +40,8 @@ def footer_html(prefix: str) -> str:
 .ibf-some svg{{width:19px;height:19px}}
 .ibf h4{{font:600 12px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;
   color:var(--gull);margin-bottom:18px}}
-.ibf-lenker{{list-style:none;padding:0}}
-.ibf-lenker li{{margin-bottom:10px}}
+.ibf ul.ibf-lenker{{list-style:none;padding:0!important;margin:0!important}}
+.ibf-lenker li{{margin:0 0 10px;padding:0}}
 .ibf-lenker a{{color:#D9D2C5;text-decoration:none;transition:color .2s}}
 .ibf-lenker a:hover{{color:#fff}}
 .ibf-kontakt p{{margin-bottom:8px;color:#B5AC9C}}
@@ -57,7 +57,13 @@ def footer_html(prefix: str) -> str:
 .ibf-bunn{{border-top:1px solid rgba(255,255,255,.09);padding:20px;display:flex;
   flex-wrap:wrap;gap:8px;justify-content:center;text-align:center;
   font:400 12.5px Inter,sans-serif;color:#8F877A}}
-@media(max-width:820px){{.ibf-kolonner{{grid-template-columns:1fr;gap:34px}}}}
+@media(max-width:820px){{
+ .ibf-kolonner{{grid-template-columns:1fr;gap:38px;text-align:center}}
+ .ibf-logo{{display:flex;flex-direction:column;align-items:center}}
+ .ibf-slagord{{max-width:none}}
+ .ibf-some{{justify-content:center}}
+ .ibf-partner{{flex:0 0 auto;min-width:150px;height:58px;padding:10px 18px}}
+}}
 </style>
 <div class="ibf-indre">
  <div class="ibf-kolonner">

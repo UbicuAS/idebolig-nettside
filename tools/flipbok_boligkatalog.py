@@ -99,7 +99,7 @@ def bygg() -> None:
   margin-bottom:16px}}
 .fbk-intro{{color:var(--grå);font-size:15.5px;line-height:1.7}}
 .fb-scene{{perspective:2600px;max-width:1020px;margin:0 auto}}
-.fb-stack{{position:relative;width:100%;aspect-ratio:3/2;transition:translate .6s ease}}
+.fb-stack{{position:relative;width:100%;aspect-ratio:3/2;transition:translate 1.15s cubic-bezier(.36,.04,.22,1)}}
 .fb-halv{{position:absolute;top:0;bottom:0;width:50%;background:var(--papir);
   overflow:hidden;box-shadow:0 18px 50px rgba(51,48,44,.22)}}
 .fb-halv--v{{left:0;border-radius:10px 2px 2px 10px}}
@@ -110,14 +110,26 @@ def bygg() -> None:
   background:linear-gradient(to right,rgba(0,0,0,.09),transparent)}}
 .fb-halv.fb-blank{{visibility:hidden}}
 .fb-leaf{{position:absolute;top:0;bottom:0;left:50%;width:50%;
-  transform-style:preserve-3d;transform-origin:left center;z-index:5}}
+  transform-style:preserve-3d;transform-origin:left center;z-index:5;
+  will-change:transform;--fb-ms:1150ms}}
 .fb-leaf-f,.fb-leaf-b{{position:absolute;inset:0;backface-visibility:hidden;
   background:var(--papir);overflow:hidden;border-radius:2px 10px 10px 2px}}
 .fb-leaf-b{{transform:rotateY(180deg);border-radius:10px 2px 2px 10px}}
-@keyframes fbNeste{{0%{{transform:rotateY(0) rotateX(0)}}25%{{transform:rotateY(-48deg) rotateX(2.2deg)}}
-  75%{{transform:rotateY(-132deg) rotateX(2.2deg)}}100%{{transform:rotateY(-180deg) rotateX(0)}}}}
-@keyframes fbForrige{{0%{{transform:rotateY(-180deg) rotateX(0)}}25%{{transform:rotateY(-132deg) rotateX(2.2deg)}}
-  75%{{transform:rotateY(-48deg) rotateX(2.2deg)}}100%{{transform:rotateY(0) rotateX(0)}}}}
+.fb-leaf-f::after,.fb-leaf-b::after{{content:"";position:absolute;inset:0;
+  pointer-events:none;opacity:0;
+  background:linear-gradient(to right,rgba(24,22,19,.30),rgba(24,22,19,.06) 55%,transparent);
+  animation:fbSkygge var(--fb-ms) ease-in-out forwards}}
+@keyframes fbSkygge{{0%{{opacity:0}}45%{{opacity:1}}100%{{opacity:0}}}}
+@keyframes fbNeste{{0%{{transform:rotateY(0) rotateX(0)}}
+  30%{{transform:rotateY(-54deg) rotateX(1.6deg)}}
+  50%{{transform:rotateY(-90deg) rotateX(2deg)}}
+  70%{{transform:rotateY(-126deg) rotateX(1.6deg)}}
+  100%{{transform:rotateY(-180deg) rotateX(0)}}}}
+@keyframes fbForrige{{0%{{transform:rotateY(-180deg) rotateX(0)}}
+  30%{{transform:rotateY(-126deg) rotateX(1.6deg)}}
+  50%{{transform:rotateY(-90deg) rotateX(2deg)}}
+  70%{{transform:rotateY(-54deg) rotateX(1.6deg)}}
+  100%{{transform:rotateY(0) rotateX(0)}}}}
 .fb-hjorne{{position:absolute;top:0;width:74px;height:74px;pointer-events:none;
   opacity:0;transition:opacity .3s;z-index:6}}
 .fb-hjorne--h{{right:0;clip-path:polygon(100% 0,0 0,100% 100%);
@@ -168,7 +180,7 @@ def bygg() -> None:
  #fbk{{padding:56px 0 70px}}
  .fbk-topp{{padding:0 16px}}
  .fb-scene{{overflow:hidden;perspective:1400px}}
- .fb-stack{{width:200%;transition:translate .8s cubic-bezier(.4,.1,.3,1)}}
+ .fb-stack{{width:200%;transition:translate .8s cubic-bezier(.36,.04,.22,1)}}
  .fb-halv--v{{border-radius:10px}}
  .fb-halv--h{{border-radius:10px}}
  .fb-specs{{gap:5px}}
@@ -202,7 +214,7 @@ def bygg() -> None:
 </section>
 <script>
 (function(){{
- var ANTALL={len(spreads)},SOLO={solo},i=0,side='r',laast=false,MS=900;
+ var ANTALL={len(spreads)},SOLO={solo},i=0,side='r',laast=false,MS=1150;
  var v=document.getElementById('fb-venstre'),h=document.getElementById('fb-hoyre'),
      stack=document.getElementById('fb-stack'),teller=document.getElementById('fb-teller'),
      knappF=document.getElementById('fb-forrige'),knappN=document.getElementById('fb-neste'),
@@ -248,10 +260,10 @@ def bygg() -> None:
   var fb=document.createElement('div');fb.className='fb-leaf-b';
   leaf.appendChild(ff);leaf.appendChild(fb);
   if(retning>0){{inn(ff,'fb-s'+i+'r');inn(fb,'fb-s'+ny+'l');inn(h,'fb-s'+ny+'r');
-   leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+   leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.36,.04,.22,1) forwards';}}
   else{{leaf.style.transform='rotateY(-180deg)';
    inn(ff,'fb-s'+ny+'r');inn(fb,'fb-s'+i+'l');inn(v,'fb-s'+ny+'l');
-   leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+   leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.36,.04,.22,1) forwards';}}
   stack.appendChild(leaf);
   if(mobil()){{
    side=etterSide;
