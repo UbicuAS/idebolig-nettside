@@ -4,6 +4,9 @@ Statisk kopi av [idebolig.no](https://idebolig.no) (WordPress + Astra + Elemento
 speilet 5. august 2026. Brukes som forhåndsvisning for kunden og som utgangspunkt
 for ny deploy på eget domene.
 
+**Live forhåndsvisning:** https://ubicuas.github.io/idebolig-nettside/
+(GitHub Pages, deploy fra `main`; senere idebolig.ubicu.cloud)
+
 ## Status
 
 - Alle sider er med: forside, om oss, tjenester, prosjekter, kontakt, boligkatalog
@@ -26,7 +29,8 @@ python3 -m http.server 8741
 - `index.html` + undermapper per side — speilet fra WordPress
 - `wp-content/` — tema, plugin-assets og bilder (plassholdere)
 - `tools/lag_plassholdere.py` — skriptet som genererte plassholderne
-- `.github/workflows/deploy.yml` — deploy til GitHub Pages fra `main`
+
+Deploy: GitHub Pages «deploy from branch» (`main`, rot) — ingen workflow nødvendig.
 
 ## Backlog og rapporter
 
