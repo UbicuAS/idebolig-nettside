@@ -165,15 +165,15 @@ def bygg() -> None:
 .fbk-kontroll button{{flex:0 0 46px;padding:0;line-height:1;min-width:0}}
 @media(hover:none){{.fb-hjorne{{display:none}}}}
 @media(max-width:700px){{
- #fbk{{padding:56px 10px 70px}}
- .fb-stack{{aspect-ratio:3/4;max-width:420px;margin:0 auto}}
- .fb-halv--v{{display:none}}
- .fb-halv--h{{left:0;width:100%;border-radius:10px}}
- .fb-halv--h::after{{display:none}}
- .fb-leaf{{left:0;width:100%}}
- .fb-leaf-f,.fb-leaf-b{{border-radius:10px}}
+ #fbk{{padding:56px 0 70px}}
+ .fbk-topp{{padding:0 16px}}
+ .fb-scene{{overflow:hidden;perspective:1400px}}
+ .fb-stack{{width:200%;transition:translate .8s cubic-bezier(.4,.1,.3,1)}}
+ .fb-halv--v{{border-radius:10px}}
+ .fb-halv--h{{border-radius:10px}}
  .fb-specs{{gap:5px}}
  .fb-foto p{{font-size:19px}}
+ .fb-info{{padding:7% 8%}}
 }}
 </style>
 <section id="fbk">
@@ -202,68 +202,79 @@ def bygg() -> None:
 </section>
 <script>
 (function(){{
- var ANTALL={len(spreads)},SOLO={solo},i=0,j=0,laast=false,MS=900;
+ var ANTALL={len(spreads)},SOLO={solo},i=0,side='r',laast=false,MS=900;
  var v=document.getElementById('fb-venstre'),h=document.getElementById('fb-hoyre'),
      stack=document.getElementById('fb-stack'),teller=document.getElementById('fb-teller'),
      knappF=document.getElementById('fb-forrige'),knappN=document.getElementById('fb-neste'),
      hjV=document.getElementById('fb-hj-v'),hjH=document.getElementById('fb-hj-h'),
      smal=window.matchMedia('(max-width:700px)');
- // flat sideliste for enkel-modus (mobil): alle ikke-tomme sider i rekkefolge
+ function harInnhold(s,kant){{var tpl=document.getElementById('fb-s'+s+kant);
+  return !!(tpl&&tpl.content.firstElementChild);}}
+ // flat sideliste til telleren på mobil
  var SIDER=[];
  for(var s=0;s<ANTALL;s++){{['l','r'].forEach(function(kant){{
-  var tpl=document.getElementById('fb-s'+s+kant);
-  if(tpl&&tpl.content.firstElementChild)SIDER.push({{spread:s,id:'fb-s'+s+kant}});}});}}
+  if(harInnhold(s,kant))SIDER.push(s+kant);}});}}
  function inn(el,id){{var tpl=document.getElementById(id);el.innerHTML='';
   if(tpl&&tpl.content.firstElementChild){{el.appendChild(tpl.content.firstElementChild.cloneNode(true));
    el.classList.remove('fb-blank');}}else el.classList.add('fb-blank');}}
- function enkel(){{return smal.matches;}}
- function maks(){{return enkel()?SIDER.length:ANTALL;}}
- function pos(){{return enkel()?j:i;}}
+ function mobil(){{return smal.matches;}}
+ function fiksSide(){{
+  if(!harInnhold(i,'l'))side='r';
+  else if(!harInnhold(i,'r'))side='l';
+ }}
  function vis(){{
-  if(enkel()){{
-   inn(h,SIDER[j].id);v.classList.add('fb-blank');stack.style.translate='0';
-   teller.textContent='Side '+(j+1)+' av '+SIDER.length;
+  inn(v,'fb-s'+i+'l');inn(h,'fb-s'+i+'r');
+  if(mobil()){{
+   fiksSide();
+   stack.style.translate=(side==='r')?'-50%':'0';
+   teller.textContent='Side '+(SIDER.indexOf(i+side)+1)+' av '+SIDER.length;
+   knappF.disabled=(i===0&&side==='r'&&!harInnhold(0,'l'))||(i===0&&side==='l');
+   knappN.disabled=(i===ANTALL-1&&side==='l'&&!harInnhold(ANTALL-1,'r'))||(i===ANTALL-1&&side==='r');
+   if(i===0)knappF.disabled=true;
+   if(i===ANTALL-1)knappN.disabled=(side==='l'&&!harInnhold(ANTALL-1,'r'))||side==='r'||!harInnhold(ANTALL-1,'r');
   }}else{{
-   inn(v,'fb-s'+i+'l');inn(h,'fb-s'+i+'r');
    stack.style.translate=(SOLO.indexOf(i)>-1)?(v.classList.contains('fb-blank')?'-25%':'25%'):'0';
    teller.textContent=i===0?'Forside':(i===ANTALL-1?'Bakside':'Oppslag '+i+' av '+(ANTALL-2));
+   knappF.disabled=i===0;knappN.disabled=i===ANTALL-1;
   }}
-  knappF.disabled=pos()===0;knappN.disabled=pos()===maks()-1;
-  hjH.classList.toggle('fb-kan',pos()<maks()-1);hjV.classList.toggle('fb-kan',pos()>0);
+  hjH.classList.toggle('fb-kan',i<ANTALL-1);hjV.classList.toggle('fb-kan',i>0);
  }}
- function bla(retning){{
-  var ny=pos()+retning;
-  if(laast||ny<0||ny>=maks())return;
+ function vend(retning,etterSide){{
+  var ny=i+retning;
+  if(laast||ny<0||ny>=ANTALL)return;
   laast=true;
   var leaf=document.createElement('div');leaf.className='fb-leaf';
   var ff=document.createElement('div');ff.className='fb-leaf-f';
   var fb=document.createElement('div');fb.className='fb-leaf-b';
   leaf.appendChild(ff);leaf.appendChild(fb);
-  if(enkel()){{
-   if(retning>0){{inn(ff,SIDER[j].id);inn(fb,SIDER[ny].id);inn(h,SIDER[ny].id);
-    leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
-   else{{leaf.style.transform='rotateY(-180deg)';
-    inn(ff,SIDER[ny].id);inn(fb,SIDER[j].id);inn(h,SIDER[ny].id);
-    leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
-   stack.appendChild(leaf);
-   setTimeout(function(){{j=ny;vis();leaf.remove();laast=false;}},MS);
+  if(retning>0){{inn(ff,'fb-s'+i+'r');inn(fb,'fb-s'+ny+'l');inn(h,'fb-s'+ny+'r');
+   leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+  else{{leaf.style.transform='rotateY(-180deg)';
+   inn(ff,'fb-s'+ny+'r');inn(fb,'fb-s'+i+'l');inn(v,'fb-s'+ny+'l');
+   leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
+  stack.appendChild(leaf);
+  if(mobil()){{
+   side=etterSide;
+   if(!harInnhold(ny,side==='l'?'l':'r'))side=(side==='l')?'r':'l';
+   stack.style.translate=(side==='r')?'-50%':'0';
   }}else{{
-   if(retning>0){{inn(ff,'fb-s'+i+'r');inn(fb,'fb-s'+ny+'l');inn(h,'fb-s'+ny+'r');
-    leaf.style.animation='fbNeste '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
-   else{{leaf.style.transform='rotateY(-180deg)';
-    inn(ff,'fb-s'+ny+'r');inn(fb,'fb-s'+i+'l');inn(v,'fb-s'+ny+'l');
-    leaf.style.animation='fbForrige '+MS+'ms cubic-bezier(.4,.1,.3,1) forwards';}}
-   stack.appendChild(leaf);
    stack.style.translate=(SOLO.indexOf(ny)>-1)?(ny===0?'25%':'-25%'):'0';
-   setTimeout(function(){{i=ny;vis();leaf.remove();laast=false;}},MS);
   }}
+  setTimeout(function(){{i=ny;vis();leaf.remove();laast=false;}},MS);
  }}
- smal.addEventListener('change',function(){{
-  // behold posisjonen best mulig ved modusbytte
-  if(enkel()){{for(var k=0;k<SIDER.length;k++)if(SIDER[k].spread===i){{j=k;break;}}}}
-  else i=SIDER[Math.min(j,SIDER.length-1)].spread;
-  vis();
- }});
+ function bla(retning){{
+  if(laast)return;
+  if(mobil()){{
+   if(retning>0){{
+    if(side==='l'&&harInnhold(i,'r')){{side='r';vis();}}
+    else vend(1,'l');
+   }}else{{
+    if(side==='r'&&harInnhold(i,'l')){{side='l';vis();}}
+    else vend(-1,'r');
+   }}
+  }}else vend(retning,retning>0?'l':'r');
+ }}
+ smal.addEventListener('change',function(){{fiksSide();vis();}});
  knappN.addEventListener('click',function(){{bla(1);}});
  knappF.addEventListener('click',function(){{bla(-1);}});
  h.addEventListener('click',function(e){{if(!e.target.closest('a'))bla(1);}});
