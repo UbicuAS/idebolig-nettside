@@ -480,6 +480,16 @@ class="hfeed site" id="page">
   var dx=e.changedTouches[0].clientX-sx;sx=null;
   if(dx<-40)bla(1);if(dx>40)bla(-1);},{passive:true});
  vis();
+ // forhaandsdekod alle katalogbilder i ledig tid - ingen dekoding midt i bladingen
+ function forhaandslast(){
+  var sett={};
+  [].slice.call(document.querySelectorAll('#fbk template')).forEach(function(tpl){
+   [].slice.call(tpl.content.querySelectorAll('img')).forEach(function(im){
+    var s=im.getAttribute('src');if(s&&!sett[s]){sett[s]=1;
+     var b=new Image();b.src=s;if(b.decode)b.decode().catch(function(){});}});});
+ }
+ if('requestIdleCallback' in window)requestIdleCallback(forhaandslast,{timeout:2500});
+ else setTimeout(forhaandslast,1200);
 })();
 </script>
 </main><!-- #main -->
