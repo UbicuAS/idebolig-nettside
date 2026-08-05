@@ -209,6 +209,9 @@ class="hfeed site" id="page">
 .fb-halv--h::after{content:"";position:absolute;inset:0 auto 0 0;width:34px;
   background:linear-gradient(to right,rgba(0,0,0,.09),transparent)}
 .fb-halv.fb-blank{visibility:hidden}
+.fb-slot{position:absolute;inset:0;visibility:hidden;transform:translateZ(0)}
+.fb-slot.aktiv{visibility:visible}
+.fb-halv::after{z-index:3}
 .fb-leaf{position:absolute;top:0;bottom:0;left:50%;width:50%;
   transform-style:preserve-3d;transform-origin:left center;z-index:5;
   will-change:transform;--fb-ms:1150ms}
@@ -216,9 +219,12 @@ class="hfeed site" id="page">
   background:var(--papir);overflow:hidden;border-radius:2px 10px 10px 2px;
   transform:translateZ(0)}
 .fb-leaf-b{transform:rotateY(180deg) translateZ(0);border-radius:10px 2px 2px 10px}
+.fb-leaf{visibility:hidden}
+.fb-leaf.aktiv{visibility:visible}
 .fb-leaf-f::after,.fb-leaf-b::after{content:"";position:absolute;inset:0;
   pointer-events:none;opacity:0;
-  background:linear-gradient(to right,rgba(24,22,19,.30),rgba(24,22,19,.06) 55%,transparent);
+  background:linear-gradient(to right,rgba(24,22,19,.30),rgba(24,22,19,.06) 55%,transparent)}
+.fb-leaf.aktiv .fb-leaf-f::after,.fb-leaf.aktiv .fb-leaf-b::after{
   animation:fbSkygge var(--fb-ms) ease-in-out forwards}
 @keyframes fbSkygge{0%{opacity:0}45%{opacity:1}100%{opacity:0}}
 @keyframes fbNeste{0%{transform:rotateY(0) rotateX(0)}
@@ -287,6 +293,8 @@ class="hfeed site" id="page">
  .fb-specs{gap:5px}
  .fb-foto p{font-size:19px}
  .fb-info{padding:7% 8%}
+ @keyframes fbNeste{0%{transform:rotateY(0)}100%{transform:rotateY(-180deg)}}
+ @keyframes fbForrige{0%{transform:rotateY(-180deg)}100%{transform:rotateY(0)}}
 }
 </style>
 <section id="fbk">
@@ -383,85 +391,133 @@ class="hfeed site" id="page">
 </section>
 <script>
 (function(){
- var ANTALL=10,SOLO=[0, 9],i=0,side='r',laast=false,MS=1150;
- var v=document.getElementById('fb-venstre'),h=document.getElementById('fb-hoyre'),
+ var ANTALL=10,SOLO=[0, 9],i=0,side='r',laast=false,MS=1150,klargjortFor=-1;
+ var vEl=document.getElementById('fb-venstre'),hEl=document.getElementById('fb-hoyre'),
      stack=document.getElementById('fb-stack'),teller=document.getElementById('fb-teller'),
      knappF=document.getElementById('fb-forrige'),knappN=document.getElementById('fb-neste'),
      hjV=document.getElementById('fb-hj-v'),hjH=document.getElementById('fb-hj-h'),
      smal=window.matchMedia('(max-width:700px)');
- function harInnhold(s,kant){var tpl=document.getElementById('fb-s'+s+kant);
-  return !!(tpl&&tpl.content.firstElementChild);}
- // flat sideliste til telleren på mobil
+ function tpl(id){var e=document.getElementById(id);
+  return (e&&e.content.firstElementChild)?e:null;}
+ function harInnhold(s,kant){return !!tpl('fb-s'+s+kant);}
  var SIDER=[];
  for(var s=0;s<ANTALL;s++){['l','r'].forEach(function(kant){
   if(harInnhold(s,kant))SIDER.push(s+kant);});}
- function inn(el,id){var tpl=document.getElementById(id);el.innerHTML='';
-  if(tpl&&tpl.content.firstElementChild){el.appendChild(tpl.content.firstElementChild.cloneNode(true));
-   el.classList.remove('fb-blank');}else el.classList.add('fb-blank');}
+ // dobbeltbufrede halvdeler: fyll skjult slot i fred, veksle med ren visibility
+ function lagHalv(el){el.innerHTML='';
+  var a=document.createElement('div'),b=document.createElement('div');
+  a.className='fb-slot aktiv';b.className='fb-slot';
+  el.appendChild(a);el.appendChild(b);
+  return {el:el,slots:[a,b],aktiv:0};}
+ var HV=lagHalv(vEl),HH=lagHalv(hEl);
+ function fyll(halv,id){var slot=halv.slots[1-halv.aktiv];slot.innerHTML='';
+  var e=tpl(id);
+  if(e)slot.appendChild(e.content.firstElementChild.cloneNode(true));
+  slot.dataset.tom=e?'':'1';}
+ function veksle(halv){halv.aktiv=1-halv.aktiv;
+  halv.slots[halv.aktiv].classList.add('aktiv');
+  halv.slots[1-halv.aktiv].classList.remove('aktiv');
+  halv.el.classList.toggle('fb-blank',halv.slots[halv.aktiv].dataset.tom==='1');}
+ function settDirekte(halv,id){fyll(halv,id);veksle(halv);}
+ // permanent ark med varmt GPU-lag
+ var leaf=document.createElement('div');leaf.className='fb-leaf';
+ var ff=document.createElement('div');ff.className='fb-leaf-f';
+ var fb=document.createElement('div');fb.className='fb-leaf-b';
+ leaf.appendChild(ff);leaf.appendChild(fb);stack.appendChild(leaf);
+ function innI(el,id){el.innerHTML='';var e=tpl(id);
+  if(e)el.appendChild(e.content.firstElementChild.cloneNode(true));}
+ function klargjorFrem(){
+  if(i+1>=ANTALL){klargjortFor=-1;return;}
+  innI(ff,'fb-s'+i+'r');innI(fb,'fb-s'+(i+1)+'l');
+  fyll(HH,'fb-s'+(i+1)+'r');fyll(HV,'fb-s'+(i+1)+'l');
+  klargjortFor=i;
+ }
  function mobil(){return smal.matches;}
  function fiksSide(){
   if(!harInnhold(i,'l'))side='r';
   else if(!harInnhold(i,'r'))side='l';
  }
- function vis(){
-  inn(v,'fb-s'+i+'l');inn(h,'fb-s'+i+'r');
+ function pan(){
+  if(mobil())stack.style.translate=(side==='r')?'-50%':'0';
+  else stack.style.translate=(SOLO.indexOf(i)>-1)?(HV.el.classList.contains('fb-blank')?'-25%':'25%'):'0';
+ }
+ function oppdaterUI(){
   if(mobil()){
    fiksSide();
-   stack.style.translate=(side==='r')?'-50%':'0';
    teller.textContent='Side '+(SIDER.indexOf(i+side)+1)+' av '+SIDER.length;
-   knappF.disabled=(i===0&&side==='r'&&!harInnhold(0,'l'))||(i===0&&side==='l');
-   knappN.disabled=(i===ANTALL-1&&side==='l'&&!harInnhold(ANTALL-1,'r'))||(i===ANTALL-1&&side==='r');
-   if(i===0)knappF.disabled=true;
-   if(i===ANTALL-1)knappN.disabled=(side==='l'&&!harInnhold(ANTALL-1,'r'))||side==='r'||!harInnhold(ANTALL-1,'r');
+   knappF.disabled=i===0;
+   knappN.disabled=(i===ANTALL-1)&&(side==='l'?!harInnhold(ANTALL-1,'r'):true);
   }else{
-   stack.style.translate=(SOLO.indexOf(i)>-1)?(v.classList.contains('fb-blank')?'-25%':'25%'):'0';
    teller.textContent=i===0?'Forside':(i===ANTALL-1?'Bakside':'Oppslag '+i+' av '+(ANTALL-2));
    knappF.disabled=i===0;knappN.disabled=i===ANTALL-1;
   }
   hjH.classList.toggle('fb-kan',i<ANTALL-1);hjV.classList.toggle('fb-kan',i>0);
+  pan();
+ }
+ function vis(){
+  settDirekte(HV,'fb-s'+i+'l');settDirekte(HH,'fb-s'+i+'r');
+  oppdaterUI();
+  if('requestIdleCallback' in window)requestIdleCallback(klargjorFrem,{timeout:800});
+  else setTimeout(klargjorFrem,120);
+ }
+ function startAnim(navn){
+  leaf.style.animation='none';void leaf.offsetWidth;
+  leaf.classList.add('aktiv');
+  leaf.style.animation=navn+' '+MS+'ms cubic-bezier(.36,.04,.22,1) forwards';
+ }
+ function etterVend(ny,retning){
+  return function(){
+   if(retning>0)veksle(HV);else veksle(HH);
+   leaf.classList.remove('aktiv');leaf.style.animation='none';
+   i=ny;oppdaterUI();laast=false;
+   if('requestIdleCallback' in window)requestIdleCallback(klargjorFrem,{timeout:800});
+   else setTimeout(klargjorFrem,120);
+  };
  }
  function vend(retning,etterSide){
   var ny=i+retning;
   if(laast||ny<0||ny>=ANTALL)return;
   laast=true;
-  var leaf=document.createElement('div');leaf.className='fb-leaf';
-  var ff=document.createElement('div');ff.className='fb-leaf-f';
-  var fb=document.createElement('div');fb.className='fb-leaf-b';
-  leaf.appendChild(ff);leaf.appendChild(fb);
-  var anim;
-  if(retning>0){inn(ff,'fb-s'+i+'r');inn(fb,'fb-s'+ny+'l');inn(h,'fb-s'+ny+'r');
-   anim='fbNeste';}
-  else{leaf.style.transform='rotateY(-180deg)';
-   inn(ff,'fb-s'+ny+'r');inn(fb,'fb-s'+i+'l');inn(v,'fb-s'+ny+'l');
-   anim='fbForrige';}
-  stack.appendChild(leaf);
-  var maalTranslate;
-  if(mobil()){
-   side=etterSide;
-   if(!harInnhold(ny,side==='l'?'l':'r'))side=(side==='l')?'r':'l';
-   maalTranslate=(side==='r')?'-50%':'0';
+  if(mobil()){side=etterSide;
+   if(!harInnhold(ny,side==='l'?'l':'r'))side=(side==='l')?'r':'l';}
+  var ferdig=false,sluttfunk=etterVend(ny,retning);
+  function slutt(){if(ferdig)return;ferdig=true;
+   leaf.removeEventListener('animationend',slutt);sluttfunk();}
+  leaf.addEventListener('animationend',slutt);
+  setTimeout(slutt,MS+300);
+  if(retning>0&&klargjortFor===i){
+   // forhaandsbakt: null DOM-arbeid i trykkoyeblikket
+   veksle(HH);
+   startAnim('fbNeste');
+   stackPanTil(ny);
   }else{
-   maalTranslate=(SOLO.indexOf(ny)>-1)?(ny===0?'25%':'-25%'):'0';
+   if(retning>0){
+    innI(ff,'fb-s'+i+'r');innI(fb,'fb-s'+ny+'l');
+    fyll(HH,'fb-s'+ny+'r');fyll(HV,'fb-s'+ny+'l');
+    void leaf.offsetWidth;
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+     veksle(HH);startAnim('fbNeste');stackPanTil(ny);});});
+   }else{
+    innI(ff,'fb-s'+ny+'r');innI(fb,'fb-s'+i+'l');
+    fyll(HV,'fb-s'+ny+'l');fyll(HH,'fb-s'+ny+'r');
+    void leaf.offsetWidth;
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+     veksle(HV);startAnim('fbForrige');stackPanTil(ny);});});
+   }
   }
-  var ferdig=false;
-  function avslutt(){if(ferdig)return;ferdig=true;i=ny;vis();leaf.remove();laast=false;}
-  leaf.addEventListener('animationend',avslutt);
-  setTimeout(avslutt,MS+250); // sikkerhetsnett
-  // la DOM-byttet males ferdig foer animasjonen starter (unngaar hakking)
-  void leaf.offsetWidth;
-  requestAnimationFrame(function(){requestAnimationFrame(function(){
-   leaf.style.animation=anim+' '+MS+'ms cubic-bezier(.36,.04,.22,1) forwards';
-   stack.style.translate=maalTranslate;
-  });});
+ }
+ function stackPanTil(ny){
+  if(mobil())stack.style.translate=(side==='r')?'-50%':'0';
+  else stack.style.translate=(SOLO.indexOf(ny)>-1)?(ny===0?'25%':'-25%'):'0';
  }
  function bla(retning){
   if(laast)return;
   if(mobil()){
    if(retning>0){
-    if(side==='l'&&harInnhold(i,'r')){side='r';vis();}
+    if(side==='l'&&harInnhold(i,'r')){side='r';oppdaterUI();}
     else vend(1,'l');
    }else{
-    if(side==='r'&&harInnhold(i,'l')){side='l';vis();}
+    if(side==='r'&&harInnhold(i,'l')){side='l';oppdaterUI();}
     else vend(-1,'r');
    }
   }else vend(retning,retning>0?'l':'r');
@@ -469,8 +525,8 @@ class="hfeed site" id="page">
  smal.addEventListener('change',function(){fiksSide();vis();});
  knappN.addEventListener('click',function(){bla(1);});
  knappF.addEventListener('click',function(){bla(-1);});
- h.addEventListener('click',function(e){if(!e.target.closest('a'))bla(1);});
- v.addEventListener('click',function(e){if(!e.target.closest('a'))bla(-1);});
+ hEl.addEventListener('click',function(e){if(!e.target.closest('a'))bla(1);});
+ vEl.addEventListener('click',function(e){if(!e.target.closest('a'))bla(-1);});
  document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight'||e.key==='Right')bla(1);
   if(e.key==='ArrowLeft'||e.key==='Left')bla(-1);});
@@ -480,11 +536,10 @@ class="hfeed site" id="page">
   var dx=e.changedTouches[0].clientX-sx;sx=null;
   if(dx<-40)bla(1);if(dx>40)bla(-1);},{passive:true});
  vis();
- // forhaandsdekod alle katalogbilder i ledig tid - ingen dekoding midt i bladingen
  function forhaandslast(){
   var sett={};
-  [].slice.call(document.querySelectorAll('#fbk template')).forEach(function(tpl){
-   [].slice.call(tpl.content.querySelectorAll('img')).forEach(function(im){
+  [].slice.call(document.querySelectorAll('#fbk template')).forEach(function(tp){
+   [].slice.call(tp.content.querySelectorAll('img')).forEach(function(im){
     var s=im.getAttribute('src');if(s&&!sett[s]){sett[s]=1;
      var b=new Image();b.src=s;if(b.decode)b.decode().catch(function(){});}});});
  }
